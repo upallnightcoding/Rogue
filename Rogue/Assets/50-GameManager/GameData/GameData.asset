@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5be07fb970cfbb94eb7403da36426454, type: 3}
+  m_Name: GameData
+  m_EditorClassIdentifier: 
+  width: 10
+  height: 10
+  testTilePrefab: {fileID: 1447245046438455826, guid: 04ddbff8db7ea4747b38e654bdd3eaf3, type: 3}
+  test9TilePreFab: {fileID: 9209054639204390283, guid: fb21562dd841b9e4aa3294e20167502e, type: 3}
+  testTilePreFab: {fileID: 1447245046438455826, guid: 04ddbff8db7ea4747b38e654bdd3eaf3, type: 3}
+  tilePreFab:
+  - {fileID: 1338579585716935601, guid: a3b4e7371e59e69479990194795f2315, type: 3}
+  - {fileID: 8064883527932864954, guid: 2fe97e8c592212d4ba5e37485be96d39, type: 3}
+  - {fileID: 2024874032069831225, guid: c7d2b3e01a7fb2741ac5e683436bcf01, type: 3}
+  - {fileID: 3421313829964602303, guid: dc011d3f0aba2a44a8acdede526dca20, type: 3}
+  - {fileID: 164435073437390852, guid: 616709b5089b2ec4cbe66755f2b67e36, type: 3}
+  runePreFab:
+  - {fileID: 6436543999204411339, guid: bbc48b91e5999bd459ea0a129940fb0e, type: 3}
+  - {fileID: 5684677237596862688, guid: 4ace9e06f53926f41aaafa2dde6fd907, type: 3}
+  - {fileID: 7016192608836193391, guid: c0a90f02475c14f4c87efede6771995f, type: 3}
+  - {fileID: 3275160855536214927, guid: e35acafa86c19724885f2972fe6ce325, type: 3}
+  - {fileID: 8616660563012961485, guid: 9bc22e2e3997cfc46b696326ce1dde77, type: 3}
+  wallsPreFab:
+  - {fileID: 4268032046810510070, guid: 281a97609d6b7b24ab0e539bec9108a5, type: 3}
+  - {fileID: 6370388904105371858, guid: efa4f13bd3ff1d14b95124ab5f551d5c, type: 3}
+  tileFramwork: {fileID: 413975351264230381, guid: 787c330b3b0355a4b95688a8783e8599, type: 3}

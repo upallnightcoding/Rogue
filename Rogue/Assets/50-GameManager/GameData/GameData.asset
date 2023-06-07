@@ -32,4 +32,6 @@ MonoBehaviour:
   wallsPreFab:
   - {fileID: 4268032046810510070, guid: 281a97609d6b7b24ab0e539bec9108a5, type: 3}
   - {fileID: 6370388904105371858, guid: efa4f13bd3ff1d14b95124ab5f551d5c, type: 3}
+  doorPreFab: []
+  archwayPreFab: {fileID: 9140835371998827733, guid: 6acf22530292f2c43812af09cb686322, type: 3}
   tileFramwork: {fileID: 413975351264230381, guid: 787c330b3b0355a4b95688a8783e8599, type: 3}

@@ -6,6 +6,26 @@ public class MazeBuilder : MonoBehaviour
 {
     [SerializeField] private GameData gameData;
 
+    List<string> nsew = new List<string> {
+        "North", "South", "East", "West", "NorthEast", "NorthWest", "SouthEast", "SouthWest"
+    };
+
+    List<string> eastWall = new List<string> {
+        "EastWall01", "EastWall03"
+    };
+
+    List<string> westWall = new List<string> {
+        "WestWall01", "WestWall03"
+    };
+
+    List<string> northWall = new List<string> {
+            "NorthWall01", "NorthWall03"
+        };
+
+    List<string> southWall = new List<string> {
+            "SouthWall01", "SouthWall03"
+        };
+
     public void Build9TestTile(Maze maze)
     {
         float distance = 20.0f;
@@ -17,9 +37,9 @@ public class MazeBuilder : MonoBehaviour
             {
                 Vector3 position = new Vector3(col * distance, 0.0f, row * distance);
 
-                CreateCellWithRune(position);
-
                 MazeCell cell = maze.GetMazeCell(col, row);
+
+                CreateCellWithRune(cell, position);
 
                 if (cell.IsNorth())
                 {
@@ -34,30 +54,27 @@ public class MazeBuilder : MonoBehaviour
         }
     }
 
-    public GameObject CreateCellWithRune(Vector3 position)
+    public GameObject CreateCellWithRune(MazeCell cell, Vector3 position)
     {
         Framework framework = new Framework();
 
         GameObject go = framework.
             Blueprint(gameData.tileFramwork).
-            Assemble(gameData.tilePreFab, "North", TurnGameObject()).
-            Assemble(gameData.tilePreFab, "South", TurnGameObject()).
-            Assemble(gameData.tilePreFab, "East", TurnGameObject()).
-            Assemble(gameData.tilePreFab, "West", TurnGameObject()).
-            Assemble(gameData.tilePreFab, "NorthEast", TurnGameObject()).
-            Assemble(gameData.tilePreFab, "NorthWest", TurnGameObject()).
-            Assemble(gameData.tilePreFab, "SouthEast", TurnGameObject()).
-            Assemble(gameData.tilePreFab, "SouthWest", TurnGameObject()).
+            Assemble(new ArrayOfObjectsFw(gameData.tilePreFab, nsew, TurnGameObject())).
             Assemble(gameData.runePreFab, "Center", TurnGameObject()).
-            Assemble(gameData.wallsPreFab, "EastWall01", -90.0f).
-            Assemble(gameData.wallsPreFab, "EastWall02", -90.0f).
-            Assemble(gameData.wallsPreFab, "EastWall03", -90.0f).
-            Assemble(gameData.wallsPreFab, "WestWall01", 90.0f).
-            Assemble(gameData.wallsPreFab, "WestWall02", 90.0f).
-            Assemble(gameData.wallsPreFab, "WestWall03", 90.0f).
-            Assemble(gameData.wallsPreFab, "NorthWall01", 180.0f).
-            Assemble(gameData.wallsPreFab, "NorthWall02", 180.0f).
-            Assemble(gameData.wallsPreFab, "NorthWall03", 180.0f).
+
+            Assemble(new ArrayOfObjectsFw(gameData.wallsPreFab, eastWall, -90.0f)).
+            Assemble(new ChoiceOfObjectsFw(gameData.archwayPreFab, gameData.wallsPreFab[0], cell.IsEast(), "EastWall02", -90.0f)).
+
+            Assemble(new ArrayOfObjectsFw(gameData.wallsPreFab, westWall, 90.0f)).
+            Assemble(new ChoiceOfObjectsFw(gameData.archwayPreFab, gameData.wallsPreFab[0], cell.IsWest(), "WestWall02", 90.0f)).
+
+            Assemble(new ArrayOfObjectsFw(gameData.wallsPreFab, northWall, 180.0f)).
+            Assemble(new ChoiceOfObjectsFw(gameData.archwayPreFab, gameData.wallsPreFab[0], cell.IsNorth(), "NorthWall02", 180.0f)).
+
+            Assemble(new ArrayOfObjectsFw(gameData.wallsPreFab, southWall, 0.0f)).
+            Assemble(new ChoiceOfObjectsFw(gameData.archwayPreFab, gameData.wallsPreFab[0], cell.IsSouth(), "SouthWall02", 0.0f)).
+
             Position(position).
             Build();
 

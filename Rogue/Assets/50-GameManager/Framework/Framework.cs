@@ -45,6 +45,39 @@ public class Framework
         return(this);
     }
 
+    public Framework Assemble(IFramework frame)
+    {
+        if ((frame.GetGameObject() != null) && (frame.GetCreate()))
+        {
+            Transform anchors = model.transform.Find("Anchors");
+
+            foreach(string anchorName in frame.GetAchorName())
+            {
+                Transform anchor = anchors.Find(anchorName);
+
+                GameObject go = frame.GetGameObject();
+                Vector3 rotate = new Vector3(0.0f, frame.GetYRotate(), 0.0f);
+                Quaternion rotation = Quaternion.Euler(rotate);
+
+                if (IsAPreFab(go))
+                {
+                    activeGo = Object.Instantiate(go, anchor);
+                    activeGo.transform.rotation = rotation;
+                }
+                else
+                {
+                    go.transform.position = anchor.transform.position;
+                    go.transform.rotation = rotation;
+                    go.transform.parent = anchor;
+                    activeGo = go;
+                }
+            }
+
+        }
+
+        return (this);
+    }
+
     public Framework Decorate(GameObject[] go, int count, float xRange, float zRange, float yRotate = 0.0f) 
     {
         int choice = Random.Range(0, go.Length);

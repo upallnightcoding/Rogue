@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   width: 10
   height: 10
+  moveSpeed: 4
+  rotationSpeed: 10
   testTilePrefab: {fileID: 1447245046438455826, guid: 04ddbff8db7ea4747b38e654bdd3eaf3, type: 3}
   test9TilePreFab: {fileID: 9209054639204390283, guid: fb21562dd841b9e4aa3294e20167502e, type: 3}
   testTilePreFab: {fileID: 1447245046438455826, guid: 04ddbff8db7ea4747b38e654bdd3eaf3, type: 3}

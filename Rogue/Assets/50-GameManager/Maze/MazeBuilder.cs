@@ -26,9 +26,10 @@ public class MazeBuilder : MonoBehaviour
             "SouthWall01", "SouthWall03"
         };
 
-    public void Build9TestTile(Maze maze)
+    public void Build25TestTile(Maze maze)
     {
-        float distance = 20.0f;
+        float distance = 30.0f;
+        float pathPos = 15.0f;
         GameObject go = null;
 
         for (int col = 0; col < maze.Width; col++)
@@ -39,67 +40,41 @@ public class MazeBuilder : MonoBehaviour
 
                 MazeCell cell = maze.GetMazeCell(col, row);
 
-                CreateCellWithRune(cell, position);
+                Create25CellWithRune(cell, position);
 
                 if (cell.IsNorth())
                 {
-                    go = Instantiate(gameData.testTilePrefab, new Vector3(position.x, position.y, position.z + 10.0f), Quaternion.identity);
+                    go = Instantiate(gameData.testTilePrefab, new Vector3(position.x, position.y, position.z + pathPos), Quaternion.identity);
                 }
 
                 if (cell.IsEast())
                 {
-                    go = Instantiate(gameData.testTilePrefab, new Vector3(position.x + 10.0f, position.y, position.z), Quaternion.identity);
+                    go = Instantiate(gameData.testTilePrefab, new Vector3(position.x + pathPos, position.y, position.z), Quaternion.identity);
                 }
+
             }
         }
     }
 
-    public GameObject CreateCellWithRune(MazeCell cell, Vector3 position)
+    private void Create25CellWithRune(MazeCell cell, Vector3 origin)
     {
-        Framework framework = new Framework();
+        Vector3 position = new Vector3();
 
-        GameObject go = framework.
-            Blueprint(gameData.tileFramwork).
-            Assemble(new ArrayOfObjectsFw(gameData.tilePreFab, nsew, TurnGameObject())).
-            Assemble(gameData.runePreFab, "Center", TurnGameObject()).
+        for (int x = -2; x <= 2; x++)
+        {
+            for (int z = -2; z <= 2; z++)
+            {
+                position.x = origin.x + x * 5.0f;
+                position.y = origin.y;
+                position.z = origin.z + z * 5.0f; ;
 
-            Assemble(new ArrayOfObjectsFw(gameData.wallsPreFab, eastWall, -90.0f)).
-            Assemble(new ChoiceOfObjectsFw(gameData.archwayPreFab, gameData.wallsPreFab[0], cell.IsEast(), "EastWall02", -90.0f)).
+                int selection = Random.Range(0, gameData.tilePreFab.Length);
 
-            Assemble(new ArrayOfObjectsFw(gameData.wallsPreFab, westWall, 90.0f)).
-            Assemble(new ChoiceOfObjectsFw(gameData.archwayPreFab, gameData.wallsPreFab[0], cell.IsWest(), "WestWall02", 90.0f)).
+                Instantiate(gameData.tilePreFab[selection], position, Quaternion.identity);
 
-            Assemble(new ArrayOfObjectsFw(gameData.wallsPreFab, northWall, 180.0f)).
-            Assemble(new ChoiceOfObjectsFw(gameData.archwayPreFab, gameData.wallsPreFab[0], cell.IsNorth(), "NorthWall02", 180.0f)).
 
-            Assemble(new ArrayOfObjectsFw(gameData.wallsPreFab, southWall, 0.0f)).
-            Assemble(new ChoiceOfObjectsFw(gameData.archwayPreFab, gameData.wallsPreFab[0], cell.IsSouth(), "SouthWall02", 0.0f)).
-
-            Position(position).
-            Build();
-
-        return (go);
-    }
-
-    public GameObject CreateCellWithOutRune(Vector3 position)
-    {
-        Framework framework = new Framework();
-
-        GameObject go = framework.
-            Blueprint(gameData.tileFramwork).
-            Assemble(gameData.tilePreFab, "North", TurnGameObject()).
-            Assemble(gameData.tilePreFab, "South", TurnGameObject()).
-            Assemble(gameData.tilePreFab, "East", TurnGameObject()).
-            Assemble(gameData.tilePreFab, "West", TurnGameObject()).
-            Assemble(gameData.tilePreFab, "NorthEast", TurnGameObject()).
-            Assemble(gameData.tilePreFab, "NorthWest", TurnGameObject()).
-            Assemble(gameData.tilePreFab, "SouthEast", TurnGameObject()).
-            Assemble(gameData.tilePreFab, "SouthWest", TurnGameObject()).
-            Assemble(gameData.tilePreFab, "Center", TurnGameObject()).
-            Position(position).
-            Build();
-
-        return (go);
+            }
+        }
     }
 
     private float TurnGameObject()

@@ -9,6 +9,10 @@ public class GameData : ScriptableObject
     public int width;
     public int height;
 
+    [Header("Player Attributes")]
+    public float moveSpeed;
+    public float rotationSpeed;
+
     [Header("PreFabs")]
     public GameObject testTilePrefab;
     public GameObject test9TilePreFab;

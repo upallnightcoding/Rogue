@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5be07fb970cfbb94eb7403da36426454, type: 3}
   m_Name: GameData
   m_EditorClassIdentifier: 
-  width: 10
-  height: 10
+  width: 4
+  height: 4
   moveSpeed: 4
   rotationSpeed: 10
   testTilePrefab: {fileID: 1447245046438455826, guid: 04ddbff8db7ea4747b38e654bdd3eaf3, type: 3}
@@ -37,3 +37,4 @@ MonoBehaviour:
   doorPreFab: []
   archwayPreFab: {fileID: 9140835371998827733, guid: 6acf22530292f2c43812af09cb686322, type: 3}
   tileFramwork: {fileID: 413975351264230381, guid: 787c330b3b0355a4b95688a8783e8599, type: 3}
+  wallFramework: {fileID: 6096687048522334071, guid: ea7c1ecef3883914aa1154a480a7ecaa, type: 3}

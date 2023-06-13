@@ -25,4 +25,5 @@ public class GameData : ScriptableObject
 
     [Header("Frameworks")]
     public GameObject tileFramwork;
+    public GameObject wallFramework;
 }

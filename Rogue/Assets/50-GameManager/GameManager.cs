@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     {
         Maze maze = new Maze(gameData);
 
-        mazeBuilder.Build25TestTile(maze);
+        mazeBuilder.Build5x5Room(maze);
     }
 
     void Update()

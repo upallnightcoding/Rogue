@@ -140,4 +140,30 @@ public class Framework
             || PrefabUtility.GetPrefabAssetType(thing) != PrefabAssetType.NotAPrefab
         );
     }
+
+    public static GameObject PickFromList(GameObject[] fromList)
+    {
+        int selection = Random.Range(0, fromList.Length);
+
+        return (fromList[selection]);
+    }
+
+    public static GameObject CreateObject(GameObject[] preFab, Vector3 position, float rotation)
+    {
+        return (CreateObject(PickFromList(preFab), position, rotation));
+    }
+
+    public static GameObject CreateObject(GameObject preFab, Vector3 position, float rotation)
+    {
+        GameObject go = Object.Instantiate(preFab, position, Quaternion.identity);
+        go.transform.Rotate(new Vector3(0.0f, rotation, 0.0f));
+
+        return (go);
+    }
+
+    public static float Rotate90Degree()
+    {
+        return (90.0f * Random.Range(0, 4));
+    }
+
 }

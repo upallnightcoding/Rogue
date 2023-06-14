@@ -6,7 +6,7 @@ public class MazeBuilder : MonoBehaviour
 {
     [SerializeField] private GameData gameData;
 
-    public void Build5x5Room(Maze maze)
+    public void BuildWorld(Maze maze)
     {
         float distance = 30.0f;
         float pathPos = 15.0f;
@@ -26,7 +26,7 @@ public class MazeBuilder : MonoBehaviour
                 Space space = Random.Range(0, 2) == 0 ? space5x5 : space3x3;
 
                 space.CreateFloor(mazeCell, center);
-                space.CreateWalls(mazeCell, center);
+                space.CreateSides(mazeCell, center);
 
                 if (mazeCell.IsNorth())
                 {
@@ -39,6 +39,61 @@ public class MazeBuilder : MonoBehaviour
                 }
 
             }
+        }
+
+        CalculateLevels(maze);
+
+        AdjustPositionByLevel(maze);
+    }
+
+    private void AdjustPositionByLevel(Maze maze)
+    {
+        for (int col = 0; col < maze.Width; col++)
+        {
+            for (int row = 0; row < maze.Height; row++)
+            {
+                MazeCell mazeCell = maze.GetMazeCell(col, row);
+
+                Vector3 position = mazeCell.Parent.transform.position;
+
+                mazeCell.Parent.transform.position =
+                    new Vector3(position.x, position.y + mazeCell.Level * 2.5f, position.z);
+            }
+        }
+    }
+
+    private void CalculateLevels(Maze maze)
+    {
+        List<MazeCell> cellList = new List<MazeCell>();
+        cellList.Add(maze.GetMazeCell(0, 0));
+
+        int level = 3;
+
+        CalculateLevels(maze, cellList, level);
+    }
+
+    private void CalculateLevels(Maze maze, List<MazeCell> mazeCellList, int level)
+    {
+        if ((level > 0) && (mazeCellList.Count > 0))
+        {
+            List<MazeCell> nextLevel = new List<MazeCell>();
+
+            foreach (MazeCell mazeCell in mazeCellList)
+            {
+                mazeCell.Level = level;
+
+                List<MazeCell> neighbors = mazeCell.GetNeighborList();
+
+                foreach (MazeCell neighbor in neighbors)
+                {
+                    if (neighbor.Level == 0)
+                    {
+                        nextLevel.Add(neighbor);
+                    }
+                }
+            }
+
+            CalculateLevels(maze, nextLevel, level - 1);
         }
     }
 }

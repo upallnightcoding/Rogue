@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MazeCell 
+public class MazeCell
 {
-    public int count = 0;
-    
+    //public int count = 0;
+    public GameObject Parent { get; private set; }
+
     public int Col { get; private set; }
     public int Row { get; private set; }
 
@@ -19,6 +20,13 @@ public class MazeCell
     public bool IsEast() => (East != null);
     public bool IsWest() => (West != null);
 
+    public bool IsNorthDown() => (IsNorth() && (North.Level < Level));
+    public bool IsSouthDown() => (IsSouth() && (South.Level < Level));
+    public bool IsEastDown() => (IsEast() && (East.Level < Level));
+    public bool IsWestDown() => (IsWest() && (West.Level < Level));
+
+    public int Level { get; set; }
+
     private MazeCellType cellType = MazeCellType.UNVISITED;
 
     public void MarkVisited() => cellType = MazeCellType.VISITED;
@@ -29,6 +37,21 @@ public class MazeCell
     {
         this.Col = col;
         this.Row = row;
+
+        Level = 0;
+        Parent = new GameObject($"MazeCell {Col}-{Row}");
+    }
+
+    public List<MazeCell> GetNeighborList()
+    {
+        List<MazeCell> list = new List<MazeCell>();
+
+        if (IsNorth()) list.Add(North);
+        if (IsSouth()) list.Add(South);
+        if (IsEast()) list.Add(East);
+        if (IsWest()) list.Add(West);
+
+        return (list);
     }
 
     public int GetMazeIndex() {

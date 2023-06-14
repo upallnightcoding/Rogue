@@ -22,6 +22,8 @@ public class GameData : ScriptableObject
     public GameObject[] wallsPreFab;
     public GameObject[] doorPreFab;
     public GameObject archwayPreFab;
+    public GameObject simpleRailingPreFab;
+    public GameObject stairsSimplePreFab;
 
     [Header("Frameworks")]
     public GameObject tileFramwork;

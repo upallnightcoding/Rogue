@@ -36,5 +36,7 @@ MonoBehaviour:
   - {fileID: 6370388904105371858, guid: efa4f13bd3ff1d14b95124ab5f551d5c, type: 3}
   doorPreFab: []
   archwayPreFab: {fileID: 9140835371998827733, guid: 6acf22530292f2c43812af09cb686322, type: 3}
+  simpleRailingPreFab: {fileID: 5827140412738385035, guid: 2dc85673346851e41980b25852e28c9d, type: 3}
+  stairsSimplePreFab: {fileID: 7502303560055709936, guid: 2165c0006db11204d98311e534275df9, type: 3}
   tileFramwork: {fileID: 413975351264230381, guid: 787c330b3b0355a4b95688a8783e8599, type: 3}
   wallFramework: {fileID: 6096687048522334071, guid: ea7c1ecef3883914aa1154a480a7ecaa, type: 3}

@@ -13,5 +13,5 @@ public abstract class Space
 
     abstract public void CreateFloor(MazeCell mazeCell, Vector3 center);
 
-    abstract public void CreateWalls(MazeCell mazeCell, Vector3 center);
+    abstract public void CreateSides(MazeCell mazeCell, Vector3 center);
 }

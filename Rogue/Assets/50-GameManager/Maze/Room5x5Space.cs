@@ -28,7 +28,8 @@ public class Room5x5Space : Space
 
                 int selection = Random.Range(0, gameData.tilePreFab.Length);
 
-                Object.Instantiate(gameData.tilePreFab[selection], position, Quaternion.identity);
+                GameObject go = Object.Instantiate(gameData.tilePreFab[selection], position, Quaternion.identity);
+                go.transform.parent = mazeCell.Parent.transform;
 
                 if ((x == 0) && (z == 0))
                 {
@@ -40,29 +41,33 @@ public class Room5x5Space : Space
         }
     }
 
-    public override void CreateWalls(MazeCell mazeCell, Vector3 center)
+    public override void CreateSides(MazeCell mazeCell, Vector3 center)
     {
         float distance = 2 * 5 + 5.0f / 2.0f;
 
-        CreateWall(mazeCell.IsNorth(), center + new Vector3(0.0f, center.y, distance), NORTH_WALL_ROTATE);
-        CreateWall(mazeCell.IsSouth(), center + new Vector3(0.0f, center.y, -distance), SOUTH_WALL_ROTATE);
-        CreateWall(mazeCell.IsEast(), center + new Vector3(distance, center.y, 0.0f), EAST_WALL_ROTATE);
-        CreateWall(mazeCell.IsWest(), center + new Vector3(-distance, center.y, 0.0f), WEST_WALL_ROTATE);
+        Transform parent = mazeCell.Parent.transform;
+
+        CreateWall(mazeCell.IsNorth(), center + new Vector3(0.0f, center.y, distance), NORTH_WALL_ROTATE, parent, mazeCell.IsNorthDown());
+        CreateWall(mazeCell.IsSouth(), center + new Vector3(0.0f, center.y, -distance), SOUTH_WALL_ROTATE, parent, mazeCell.IsSouthDown());
+        CreateWall(mazeCell.IsEast(), center + new Vector3(distance, center.y, 0.0f), EAST_WALL_ROTATE, parent, mazeCell.IsEastDown());
+        CreateWall(mazeCell.IsWest(), center + new Vector3(-distance, center.y, 0.0f), WEST_WALL_ROTATE, parent, mazeCell.IsWestDown());
     }
 
-    private void CreateWall(bool hasPassage, Vector3 position, Vector3 rotation)
+    private void CreateWall(bool hasPassage, Vector3 position, Vector3 rotation, Transform parent, bool createStairs)
     {
-        GameObject passage = (hasPassage) ? gameData.archwayPreFab : Framework.PickFromList(gameData.wallsPreFab);
+        GameObject passage = (hasPassage) ? gameData.archwayPreFab : gameData.simpleRailingPreFab;
 
         Framework framework = new Framework();
 
         GameObject go = framework.
             Blueprint(gameData.wallFramework).
-            Assemble(gameData.wallsPreFab, "Slab01", 180.0f).
-            Assemble(gameData.wallsPreFab, "Slab02", 180.0f).
+            Assemble(gameData.simpleRailingPreFab, "Slab01", 180.0f).
+            Assemble(gameData.simpleRailingPreFab, "Slab02", 180.0f).
             Assemble(passage, "Slab03", 180.0f).
-            Assemble(gameData.wallsPreFab, "Slab04", 180.0f).
-            Assemble(gameData.wallsPreFab, "Slab05", 180.0f).
+            Assemble(gameData.stairsSimplePreFab, "Slab03", 0.0f, createStairs).
+            Assemble(gameData.simpleRailingPreFab, "Slab04", 180.0f).
+            Assemble(gameData.simpleRailingPreFab, "Slab05", 180.0f).
+            Parent(parent).
             Position(position).
             Rotate(rotation).
             Build();

@@ -51,7 +51,7 @@ public class Maze
 
         MazeCell cell = PickRandomCell();
         cell.MarkVisited();
-        cell.count = 1;
+        //cell.count = 1;
 
         while (cellCount < nCells) {
             MazeCell neighbor = PickValidNeighbor(cell);
@@ -63,7 +63,7 @@ public class Maze
 
                 cell = neighbor;
                 cellCount++;
-                neighbor.count = cellCount;
+                //neighbor.count = cellCount;
             } else {
                 cell = stack.Pop();
             }

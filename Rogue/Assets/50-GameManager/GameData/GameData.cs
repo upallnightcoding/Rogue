@@ -18,6 +18,7 @@ public class GameData : ScriptableObject
     public GameObject test9TilePreFab;
     public GameObject testTilePreFab;
     public GameObject[] tilePreFab;
+    public GameObject[] tileOffSetPreFab;
     public GameObject[] runePreFab;
     public GameObject[] wallsPreFab;
     public GameObject[] doorPreFab;

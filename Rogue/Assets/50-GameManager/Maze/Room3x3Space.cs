@@ -21,7 +21,7 @@ public class Room3x3Space : Space
 
     public override void CreateFloor(MazeCell mazeCell, Vector3 center)
     {
-        Vector3 position = new Vector3();
+        /*Vector3 position = new Vector3();
 
         for (int x = -1; x <= 1; x++)
         {
@@ -34,9 +34,11 @@ public class Room3x3Space : Space
                 GameObject go = CreateTile(x, z, position);
                 go.transform.parent = mazeCell.Parent.transform;
             }
-        }
+        } */
 
-        CreatePassages(mazeCell, center);
+        CreateTheFloor(mazeCell, center);
+
+        //CreatePassages(mazeCell, center);
     }
 
     public override void CreateSides(MazeCell mazeCell, Vector3 center)
@@ -51,17 +53,50 @@ public class Room3x3Space : Space
         CreateSide(mazeCell.IsWest(), center + new Vector3(-distance, center.y, 0.0f), WEST_WALL_ROTATE, parent, mazeCell.IsWestDown());
     }
 
+    private void CreateTheFloor(MazeCell mazeCell, Vector3 center)
+    {
+        Vector3 position = new Vector3();
+
+        for (int x = -1; x <= 1; x++)
+        {
+            for (int z = -1; z <= 1; z++)
+            {
+                position.x = center.x + x * 5.0f;
+                position.y = center.y;
+                position.z = center.z + z * 5.0f; ;
+
+                GameObject go = CreateCenterTile(x, z, position);
+                go.transform.parent = mazeCell.Parent.transform;
+            }
+        }
+    }
+
     private void CreateSide(bool hasPassage, Vector3 position, Vector3 rotation, Transform parent, bool createStairs)
     {
-        GameObject passage = (hasPassage) ? gameData.archwayPreFab : gameData.simpleRailingPreFab;
+        //GameObject passage = (hasPassage) ? gameData.archwayPreFab : gameData.simpleRailingPreFab;
+
+        //GameObject stairs = (createStairs) ? gameData.stairsSimplePreFab : Framework.PickFromList(gameData.tileOffSetPreFab);
+        //
+        GameObject passage;
+
+        if (hasPassage)
+        {
+            if (createStairs)
+            {
+                passage = gameData.stairsSimplePreFab;
+            } else {
+                passage = Framework.PickFromList(gameData.tileOffSetPreFab);
+            }
+        } else {
+            passage = gameData.simpleRailingPreFab;
+        }
 
         Framework framework = new Framework();
 
         GameObject go = framework.
             Blueprint(gameData.wallFramework).
             Assemble(gameData.simpleRailingPreFab, "Slab02", 180.0f).
-            Assemble(passage, "Slab03", 180.0f).
-            Assemble(gameData.stairsSimplePreFab, "Slab03", 0.0f, createStairs).
+            Assemble(passage, "Slab03", 0.0f).
             Assemble(gameData.simpleRailingPreFab, "Slab04", 180.0f).
             Position(position).
             Parent(parent).
@@ -69,9 +104,9 @@ public class Room3x3Space : Space
             Build();
     }
 
-    private GameObject CreateTile(int x, int z, Vector3 position)
+    private GameObject CreateCenterTile(int x, int z, Vector3 position)
     {
-        GameObject preFab = null;
+        GameObject preFab;
 
         if ((x == 0) && (z == 0))
         {
@@ -83,30 +118,5 @@ public class Room3x3Space : Space
         }
 
         return(Framework.CreateObject(preFab, position, Framework.Rotate90Degree()));
-    }
-
-    private void CreatePassages(MazeCell mazeCell, Vector3 center)
-    {
-        GameObject preFab = Framework.PickFromList(gameData.tilePreFab);
-
-        if (mazeCell.IsNorth())
-        {
-            Framework.CreateObject(preFab, center + NORTH_PASS, Framework.Rotate90Degree());
-        }
-
-        if (mazeCell.IsSouth())
-        {
-            Framework.CreateObject(preFab, center + SOUTH_PASS, Framework.Rotate90Degree());
-        }
-
-        if (mazeCell.IsEast())
-        {
-            Framework.CreateObject(preFab, center + EAST_PASS, Framework.Rotate90Degree());
-        }
-
-        if (mazeCell.IsWest())
-        {
-            Framework.CreateObject(preFab, center + WEST_PASS, Framework.Rotate90Degree());
-        }
     }
 }

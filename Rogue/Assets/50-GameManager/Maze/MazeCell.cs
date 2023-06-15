@@ -25,6 +25,12 @@ public class MazeCell
     public bool IsEastDown() => (IsEast() && (East.Level < Level));
     public bool IsWestDown() => (IsWest() && (West.Level < Level));
 
+    public bool IsNorthEqual() => (North.Level == Level);
+    public bool IsEastEqual() => (East.Level == Level);
+
+    public int GetNorthLower() => Mathf.Min(Level, North.Level);
+    public int GetEastLower() => Mathf.Min(Level, East.Level);
+
     public int Level { get; set; }
 
     private MazeCellType cellType = MazeCellType.UNVISITED;

@@ -153,10 +153,15 @@ public class Framework
         return (CreateObject(PickFromList(preFab), position, rotation));
     }
 
-    public static GameObject CreateObject(GameObject preFab, Vector3 position, float rotation)
+    public static GameObject CreateObject(GameObject preFab, Vector3 position, float rotation, GameObject parent = null)
     {
         GameObject go = Object.Instantiate(preFab, position, Quaternion.identity);
         go.transform.Rotate(new Vector3(0.0f, rotation, 0.0f));
+
+        if (parent != null)
+        {
+            go.transform.parent = parent.transform;
+        }
 
         return (go);
     }

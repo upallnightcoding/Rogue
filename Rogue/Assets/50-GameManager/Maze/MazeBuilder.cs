@@ -8,9 +8,17 @@ public class MazeBuilder : MonoBehaviour
 
     public void BuildWorld(Maze maze)
     {
+        CalculateLevels(maze);
+
+        CreateMazeCells(maze);
+
+        AdjustPositionByLevel(maze);
+    }
+
+    private void CreateMazeCells(Maze maze)
+    {
         float distance = 30.0f;
         float pathPos = 15.0f;
-        GameObject go = null;
 
         Space space5x5 = new Room5x5Space(gameData);
         Space space3x3 = new Room3x3Space(gameData);
@@ -28,22 +36,24 @@ public class MazeBuilder : MonoBehaviour
                 space.CreateFloor(mazeCell, center);
                 space.CreateSides(mazeCell, center);
 
+                Vector3 position;
+
                 if (mazeCell.IsNorth())
                 {
-                    Framework.CreateObject(gameData.tilePreFab, new Vector3(center.x, center.y, center.z + pathPos), 0.0f);
+                    int level = mazeCell.GetNorthLower();
+                    position = new Vector3(center.x, center.y + level * 2.5f, center.z + pathPos);
+                    Framework.CreateObject(gameData.tilePreFab, position, 0.0f);
                 }
 
                 if (mazeCell.IsEast())
                 {
-                    Framework.CreateObject(gameData.tilePreFab, new Vector3(center.x + pathPos, center.y, center.z), 0.0f);
+                    int level = mazeCell.GetEastLower();
+                    position = new Vector3(center.x + pathPos, center.y + level * 2.5f, center.z);
+                    Framework.CreateObject(gameData.tilePreFab, position, 0.0f);
                 }
 
             }
         }
-
-        CalculateLevels(maze);
-
-        AdjustPositionByLevel(maze);
     }
 
     private void AdjustPositionByLevel(Maze maze)
@@ -67,7 +77,7 @@ public class MazeBuilder : MonoBehaviour
         List<MazeCell> cellList = new List<MazeCell>();
         cellList.Add(maze.GetMazeCell(0, 0));
 
-        int level = 3;
+        int level = 7;
 
         CalculateLevels(maze, cellList, level);
     }

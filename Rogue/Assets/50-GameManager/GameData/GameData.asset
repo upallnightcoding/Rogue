@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5be07fb970cfbb94eb7403da36426454, type: 3}
   m_Name: GameData
   m_EditorClassIdentifier: 
-  width: 4
-  height: 4
+  width: 5
+  height: 5
   moveSpeed: 4
   rotationSpeed: 10
   testTilePrefab: {fileID: 1447245046438455826, guid: 04ddbff8db7ea4747b38e654bdd3eaf3, type: 3}
@@ -25,6 +25,12 @@ MonoBehaviour:
   - {fileID: 2024874032069831225, guid: c7d2b3e01a7fb2741ac5e683436bcf01, type: 3}
   - {fileID: 3421313829964602303, guid: dc011d3f0aba2a44a8acdede526dca20, type: 3}
   - {fileID: 164435073437390852, guid: 616709b5089b2ec4cbe66755f2b67e36, type: 3}
+  tileOffSetPreFab:
+  - {fileID: 1338579585716935601, guid: 22d4bd7076110a1478a87e04e864c660, type: 3}
+  - {fileID: 8064883527932864954, guid: f793eca2e1b1a6e4ab6d8e837c20aa45, type: 3}
+  - {fileID: 2024874032069831225, guid: 0bffc66cee0909445b5028ebdbccd420, type: 3}
+  - {fileID: 3421313829964602303, guid: c947f4890c73e7843b7188676b3b7138, type: 3}
+  - {fileID: 164435073437390852, guid: 7f9d33e04b8828b418351b9085555025, type: 3}
   runePreFab:
   - {fileID: 6436543999204411339, guid: bbc48b91e5999bd459ea0a129940fb0e, type: 3}
   - {fileID: 5684677237596862688, guid: 4ace9e06f53926f41aaafa2dde6fd907, type: 3}

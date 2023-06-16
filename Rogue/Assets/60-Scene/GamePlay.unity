@@ -1230,7 +1230,7 @@ CharacterController:
   m_Height: 1.91
   m_Radius: 0.5
   m_SlopeLimit: 45
-  m_StepOffset: 0.3
+  m_StepOffset: 0.5
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0.06, y: 0.07, z: 0}
@@ -1424,7 +1424,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e967d4cfe1bd7341850d0990dd30f54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameData: {fileID: 11400000, guid: bccac74a641f23647bfe61e0a64c9811, type: 2}
   target: {fileID: 1247441292}
+  cameraPivot: {fileID: 1532215340}
+  inputControls: {fileID: 2107537369}
 --- !u!1 &1532215339
 GameObject:
   m_ObjectHideFlags: 0

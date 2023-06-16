@@ -30,7 +30,9 @@ public class PlayerCntrl : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        switch(playerState)
+        playerDirection = inputControls.GetMoveDirection();
+
+        switch (playerState)
         {
             case PlayerState.IDLE:
                 playerState = PlayerIdle();
@@ -45,38 +47,38 @@ public class PlayerCntrl : MonoBehaviour
 
     private void LateUpdate()
     {
-        cameraCntrl.FollowTarget();
+        cameraCntrl.HandleAllCameraMovement();
     }
 
     private PlayerState PlayerMove(float dt)
     {
-        playerDirection = inputControls.GetMoveDirection();
-
         if (IsPlayerMoving())
         {
-            Vector3 direction = cameraObject.forward * playerDirection.y;
-            direction = direction + cameraObject.right * playerDirection.x;
-            direction.y = 0.0f;
-            direction.Normalize();
-
-            charCntrl.Move(dt * gameData.moveSpeed * direction);
-
-            Quaternion targetRotation = Quaternion.LookRotation(direction);
-            Quaternion playerRotation = Quaternion.Slerp(transform.rotation, targetRotation, gameData.rotationSpeed * dt);
-
-            transform.rotation = playerRotation;
-
+            MovePlayerDirection(dt);
         }
         
         playerAnimCntrl.UpdateAnimation(playerDirection.x, playerDirection.y, dt);
 
         return (PlayerState.MOVE);
+    }  
+
+    private void MovePlayerDirection(float dt)
+    {
+        Vector3 direction = cameraObject.forward * playerDirection.y;
+        direction = direction + cameraObject.right * playerDirection.x;
+        direction.y = 0.0f;
+        direction.Normalize();
+
+        charCntrl.Move(dt * gameData.moveSpeed * direction);
+
+        Quaternion targetRotation = Quaternion.LookRotation(direction);
+        Quaternion playerRotation = Quaternion.Slerp(transform.rotation, targetRotation, gameData.rotationSpeed * dt);
+
+        transform.rotation = playerRotation;
     }
 
     private PlayerState PlayerIdle()
     {
-        playerDirection = inputControls.GetMoveDirection();
-
         return (IsPlayerMoving() ? PlayerState.MOVE : PlayerState.IDLE);
     }
 

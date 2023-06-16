@@ -13,6 +13,11 @@ public class GameData : ScriptableObject
     public float moveSpeed;
     public float rotationSpeed;
 
+    [Header("Camera Attributes")]
+    public float cameraFollowSpeed;
+    public float cameraLookSpeed;
+    public float cameraPivotSpeed;
+
     [Header("PreFabs")]
     public GameObject testTilePrefab;
     public GameObject test9TilePreFab;
@@ -25,6 +30,7 @@ public class GameData : ScriptableObject
     public GameObject archwayPreFab;
     public GameObject simpleRailingPreFab;
     public GameObject stairsSimplePreFab;
+    public GameObject halfWallPreFab;
 
     [Header("Frameworks")]
     public GameObject tileFramwork;

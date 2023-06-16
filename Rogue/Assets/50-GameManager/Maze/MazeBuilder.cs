@@ -75,7 +75,7 @@ public class MazeBuilder : MonoBehaviour
     private void CalculateLevels(Maze maze)
     {
         List<MazeCell> cellList = new List<MazeCell>();
-        cellList.Add(maze.GetMazeCell(0, 0));
+        cellList.Add(maze.GetMazeCell(4, 4));
 
         int level = 7;
 

@@ -62,11 +62,16 @@ public class Room5x5Space : Space
         GameObject go = framework.
             Blueprint(gameData.wallFramework).
             Assemble(gameData.simpleRailingPreFab, "Slab01", 180.0f).
+            Assemble(gameData.halfWallPreFab, "Slab01", 0.0f).
             Assemble(gameData.simpleRailingPreFab, "Slab02", 180.0f).
+            Assemble(gameData.halfWallPreFab, "Slab02", 0.0f).
             Assemble(passage, "Slab03", 180.0f).
+             Assemble(gameData.halfWallPreFab, "Slab03", 0.0f).
             Assemble(gameData.stairsSimplePreFab, "Slab03", 0.0f, createStairs).
             Assemble(gameData.simpleRailingPreFab, "Slab04", 180.0f).
+            Assemble(gameData.halfWallPreFab, "Slab04", 0.0f).
             Assemble(gameData.simpleRailingPreFab, "Slab05", 180.0f).
+            Assemble(gameData.halfWallPreFab, "Slab05", 0.0f).
             Parent(parent).
             Position(position).
             Rotate(rotation).

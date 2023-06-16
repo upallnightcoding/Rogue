@@ -11,6 +11,7 @@ public class InputControls : MonoBehaviour
     private InputSystem inputSystem;
     private InputAction moveAction;
     private InputAction jumpAction;
+    private InputAction mouseAction;
 
     void Awake()
     {
@@ -18,11 +19,17 @@ public class InputControls : MonoBehaviour
 
         moveAction = inputSystem.Player.Move;
         jumpAction = inputSystem.Player.Jump;
+        mouseAction = inputSystem.Player.Camera;
     }
 
     public Vector2 GetMoveDirection()
     {
         return (moveAction.ReadValue<Vector2>());
+    }
+
+    public Vector2 GetMouseDirection()
+    {
+        return (mouseAction.ReadValue<Vector2>());
     }
 
     private void Jump(InputAction.CallbackContext obj)
@@ -34,6 +41,7 @@ public class InputControls : MonoBehaviour
     {
         moveAction.Enable();
         jumpAction.Enable();
+        mouseAction.Enable();
 
         jumpAction.performed += Jump;
     }
@@ -42,6 +50,7 @@ public class InputControls : MonoBehaviour
     {
         moveAction.Disable();
         jumpAction.Disable();
+        mouseAction.Disable();
 
         jumpAction.performed -= Jump;
     }

@@ -12,9 +12,10 @@ public class PlayerCntrl : MonoBehaviour
     private CharacterController charCntrl;
     private PlayerAnimationCntrl playerAnimCntrl;
 
-    private PlayerState playerState = PlayerState.IDLE;
+    private float gravitySpeed = 0.0f;
+    private float gravity = -9.81f;
 
-    private Vector2 playerDirection;
+    private PlayerState playerState = PlayerState.IDLE;
 
     private void Awake()
     {
@@ -27,18 +28,18 @@ public class PlayerCntrl : MonoBehaviour
         InputControls.OnJump += OnJump;
     }
 
-    // Update is called once per frame
     private void Update()
     {
-        playerDirection = inputControls.GetMoveDirection();
+        Vector2 playerDirection = inputControls.GetMoveDirection();
+        Debug.Log($"Direction: {playerDirection.x}, {playerDirection.y}");
 
         switch (playerState)
         {
             case PlayerState.IDLE:
-                playerState = PlayerIdle();
+                playerState = PlayerIdle(playerDirection);
                 break;
             case PlayerState.MOVE:
-                playerState = PlayerMove(Time.deltaTime);
+                playerState = PlayerMove(playerDirection, Time.deltaTime);
                 break;
             case PlayerState.JUMP:
                 break;
@@ -50,11 +51,11 @@ public class PlayerCntrl : MonoBehaviour
         cameraCntrl.HandleAllCameraMovement();
     }
 
-    private PlayerState PlayerMove(float dt)
+    private PlayerState PlayerMove(Vector2 playerDirection, float dt)
     {
-        if (IsPlayerMoving())
+        if (IsPlayerMoving(playerDirection))
         {
-            MovePlayerDirection(dt);
+            MovePlayerDirection(playerDirection, dt);
         }
         
         playerAnimCntrl.UpdateAnimation(playerDirection.x, playerDirection.y, dt);
@@ -62,14 +63,25 @@ public class PlayerCntrl : MonoBehaviour
         return (PlayerState.MOVE);
     }  
 
-    private void MovePlayerDirection(float dt)
-    {
+    private void MovePlayerDirection(Vector2 playerDirection, float dt)
+    { 
+        if (!charCntrl.isGrounded)
+        {
+            gravitySpeed += gravity * Time.deltaTime;
+        } else
+        {
+            gravitySpeed = 0.0f;
+        }
+
         Vector3 direction = cameraObject.forward * playerDirection.y;
         direction = direction + cameraObject.right * playerDirection.x;
         direction.y = 0.0f;
         direction.Normalize();
 
-        charCntrl.Move(dt * gameData.moveSpeed * direction);
+        Vector3 hortMovement = gameData.moveSpeed * direction;
+        Vector3 vertMovement = Vector3.up * gravitySpeed;
+
+        charCntrl.Move(dt * (vertMovement + hortMovement));
 
         Quaternion targetRotation = Quaternion.LookRotation(direction);
         Quaternion playerRotation = Quaternion.Slerp(transform.rotation, targetRotation, gameData.rotationSpeed * dt);
@@ -77,9 +89,9 @@ public class PlayerCntrl : MonoBehaviour
         transform.rotation = playerRotation;
     }
 
-    private PlayerState PlayerIdle()
+    private PlayerState PlayerIdle(Vector2 playerDirection)
     {
-        return (IsPlayerMoving() ? PlayerState.MOVE : PlayerState.IDLE);
+        return (IsPlayerMoving(playerDirection) ? PlayerState.MOVE : PlayerState.IDLE);
     }
 
     private void OnJump()
@@ -87,7 +99,7 @@ public class PlayerCntrl : MonoBehaviour
         Debug.Log("Player Controller Jump ...");
     }
 
-    private bool IsPlayerMoving() => (int)playerDirection.magnitude != 0;
+    private bool IsPlayerMoving(Vector2 playerDirection) => (int)playerDirection.magnitude != 0;
 
     private enum PlayerState
     {

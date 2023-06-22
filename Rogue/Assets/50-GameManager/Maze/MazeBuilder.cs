@@ -41,14 +41,14 @@ public class MazeBuilder : MonoBehaviour
                 if (mazeCell.IsNorth())
                 {
                     int level = mazeCell.GetNorthLower();
-                    position = new Vector3(center.x, center.y + level * 2.5f, center.z + pathPos);
+                    position = new Vector3(center.x, center.y + level * gameData.tileRise, center.z + pathPos);
                     Framework.CreateObject(gameData.tilePreFab, position, 0.0f);
                 }
 
                 if (mazeCell.IsEast())
                 {
                     int level = mazeCell.GetEastLower();
-                    position = new Vector3(center.x + pathPos, center.y + level * 2.5f, center.z);
+                    position = new Vector3(center.x + pathPos, center.y + level * gameData.tileRise, center.z);
                     Framework.CreateObject(gameData.tilePreFab, position, 0.0f);
                 }
 
@@ -67,7 +67,7 @@ public class MazeBuilder : MonoBehaviour
                 Vector3 position = mazeCell.Parent.transform.position;
 
                 mazeCell.Parent.transform.position =
-                    new Vector3(position.x, position.y + mazeCell.Level * 2.5f, position.z);
+                    new Vector3(position.x, position.y + mazeCell.Level * gameData.tileRise, position.z);
             }
         }
     }

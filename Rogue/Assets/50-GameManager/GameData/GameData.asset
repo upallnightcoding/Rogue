@@ -14,11 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   width: 5
   height: 5
+  tileSize: 5
+  tileRise: 2.5
   moveSpeed: 4
   rotationSpeed: 10
   cameraFollowSpeed: 0.2
   cameraLookSpeed: 0.3
   cameraPivotSpeed: 0.3
+  minmaxPivotAngle: 35
   testTilePrefab: {fileID: 1447245046438455826, guid: 04ddbff8db7ea4747b38e654bdd3eaf3, type: 3}
   test9TilePreFab: {fileID: 9209054639204390283, guid: fb21562dd841b9e4aa3294e20167502e, type: 3}
   testTilePreFab: {fileID: 1447245046438455826, guid: 04ddbff8db7ea4747b38e654bdd3eaf3, type: 3}
@@ -45,8 +48,18 @@ MonoBehaviour:
   - {fileID: 6370388904105371858, guid: efa4f13bd3ff1d14b95124ab5f551d5c, type: 3}
   doorPreFab: []
   archwayPreFab: {fileID: 9140835371998827733, guid: 6acf22530292f2c43812af09cb686322, type: 3}
-  simpleRailingPreFab: {fileID: 5827140412738385035, guid: 2dc85673346851e41980b25852e28c9d, type: 3}
+  railingPreFab:
+  - {fileID: 5827140412738385035, guid: 2dc85673346851e41980b25852e28c9d, type: 3}
+  - {fileID: 4397602791332632694, guid: 839db85d928e93149a410559820a4715, type: 3}
   stairsSimplePreFab: {fileID: 7502303560055709936, guid: 2165c0006db11204d98311e534275df9, type: 3}
   halfWallPreFab: {fileID: 6427280670913428641, guid: fd29c168c1c5d704c846756e0a144102, type: 3}
+  statuePreFab:
+  - {fileID: 4370924374711943559, guid: 2b7729b5517c3484cb39263c105fb610, type: 3}
+  - {fileID: 4749522435315258814, guid: 6c8d32fdae93f1e4394af33f79cda958, type: 3}
+  - {fileID: 4377456905279130758, guid: 2eb48c65c82a1a444b16e8e626dc4c61, type: 3}
+  - {fileID: 3926803986111463405, guid: c3fa03b4a619248448bed44f4d6a2d86, type: 3}
+  pillarPreFab:
+  - {fileID: 6192763025702823140, guid: 9c71a1993d0ba6e4d8dc6403a1510e16, type: 3}
+  - {fileID: 14139420178682671, guid: a7a36e1305303094da93fe346e2cb206, type: 3}
   tileFramwork: {fileID: 413975351264230381, guid: 787c330b3b0355a4b95688a8783e8599, type: 3}
   wallFramework: {fileID: 6096687048522334071, guid: ea7c1ecef3883914aa1154a480a7ecaa, type: 3}

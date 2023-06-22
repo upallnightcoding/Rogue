@@ -8,6 +8,8 @@ public class GameData : ScriptableObject
     [Header("Maze Data")]
     public int width;
     public int height;
+    public int tileSize;
+    public float tileRise;
 
     [Header("Player Attributes")]
     public float moveSpeed;
@@ -17,6 +19,7 @@ public class GameData : ScriptableObject
     public float cameraFollowSpeed;
     public float cameraLookSpeed;
     public float cameraPivotSpeed;
+    public float minmaxPivotAngle;
 
     [Header("PreFabs")]
     public GameObject testTilePrefab;
@@ -28,9 +31,11 @@ public class GameData : ScriptableObject
     public GameObject[] wallsPreFab;
     public GameObject[] doorPreFab;
     public GameObject archwayPreFab;
-    public GameObject simpleRailingPreFab;
+    public GameObject[] railingPreFab;
     public GameObject stairsSimplePreFab;
     public GameObject halfWallPreFab;
+    public GameObject[] statuePreFab;
+    public GameObject[] pillarPreFab;
 
     [Header("Frameworks")]
     public GameObject tileFramwork;

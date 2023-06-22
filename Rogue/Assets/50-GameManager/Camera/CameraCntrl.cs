@@ -41,6 +41,7 @@ public class CameraCntrl : MonoBehaviour
 
         lookAngle = lookAngle + (mouseDirection.x * gameData.cameraLookSpeed);
         pivotAngle = pivotAngle - (mouseDirection.y * gameData.cameraPivotSpeed);
+        pivotAngle = Mathf.Clamp(pivotAngle, -gameData.minmaxPivotAngle, gameData.minmaxPivotAngle);
 
         Vector3 rotation = Vector3.zero;
         rotation.y = lookAngle;

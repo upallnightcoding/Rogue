@@ -37,6 +37,8 @@ public class MazeCell
 
     public void MarkVisited() => cellType = MazeCellType.VISITED;
 
+    public void MaskAsABlock() => cellType = MazeCellType.BLOCK;
+
     public bool IsUnVisited() => (cellType == MazeCellType.UNVISITED);
 
     public MazeCell(int col, int row) 
@@ -118,6 +120,7 @@ public class MazeCell
     private enum MazeCellType
     {
         VISITED,
+        BLOCK,
         UNVISITED
     }
 }

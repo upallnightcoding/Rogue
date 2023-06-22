@@ -148,9 +148,9 @@ public class Framework
         return (fromList[selection]);
     }
 
-    public static GameObject CreateObject(GameObject[] preFab, Vector3 position, float rotation)
+    public static GameObject CreateObject(GameObject[] preFab, Vector3 position, float rotation, GameObject parent = null)
     {
-        return (CreateObject(PickFromList(preFab), position, rotation));
+        return (CreateObject(PickFromList(preFab), position, rotation, parent));
     }
 
     public static GameObject CreateObject(GameObject preFab, Vector3 position, float rotation, GameObject parent = null)
@@ -166,9 +166,8 @@ public class Framework
         return (go);
     }
 
-    public static float Rotate90Degree()
-    {
-        return (90.0f * Random.Range(0, 4));
-    }
+    public static float Rotate90Degree() => (90.0f * Random.Range(0, 4));
+    
+    public static float Rotate180Degree() => (180.0f * Random.Range(0, 2));
 
 }

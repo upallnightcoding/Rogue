@@ -26,6 +26,8 @@ public class Maze
 
         Initialize();
 
+        //SetupBlockAreas();
+
         Generate();
     }
 
@@ -46,14 +48,13 @@ public class Maze
     private void Generate()
     {
         Stack<MazeCell> stack = new Stack<MazeCell>();
-        int nCells = Width * Height;
         int cellCount = 1;
 
         MazeCell cell = PickRandomCell();
         cell.MarkVisited();
-        //cell.count = 1;
+        stack.Push(cell);
 
-        while (cellCount < nCells) {
+        while (stack.Count > 0) {
             MazeCell neighbor = PickValidNeighbor(cell);
 
             if (neighbor != null) {
@@ -63,7 +64,6 @@ public class Maze
 
                 cell = neighbor;
                 cellCount++;
-                //neighbor.count = cellCount;
             } else {
                 cell = stack.Pop();
             }
@@ -135,6 +135,14 @@ public class Maze
                 maze[col, row] = new MazeCell(col, row);
             }
         }
+    }
+
+    private void SetupBlockAreas()
+    {
+        maze[1, 1].MaskAsABlock();
+        maze[2, 2].MaskAsABlock();
+        maze[1, 2].MaskAsABlock();
+        maze[2, 1].MaskAsABlock();
     }
 
     public MazeCell GetMazeCell(int col, int row) 

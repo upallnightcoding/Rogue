@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class MazeCell
 {
-    //public int count = 0;
     public GameObject Parent { get; private set; }
 
     public int Col { get; private set; }
@@ -14,6 +13,8 @@ public class MazeCell
     public MazeCell South { get; set; }
     public MazeCell East { get; set; }
     public MazeCell West { get; set; }
+
+    public int Level { get; set; }
 
     public bool IsNorth() => (North != null);
     public bool IsSouth() => (South != null);
@@ -31,7 +32,8 @@ public class MazeCell
     public int GetNorthLower() => Mathf.Min(Level, North.Level);
     public int GetEastLower() => Mathf.Min(Level, East.Level);
 
-    public int Level { get; set; }
+    public bool IsNorthDiff() => Level != North.Level;
+    public bool IsEastDiff() => Level != East.Level;
 
     private MazeCellType cellType = MazeCellType.UNVISITED;
 

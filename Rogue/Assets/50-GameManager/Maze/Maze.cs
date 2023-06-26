@@ -132,7 +132,7 @@ public class Maze
 
         for (int col = 0; col < Width; col++) {
             for (int row = 0; row < Height; row++) {
-                maze[col, row] = new MazeCell(col, row);
+                maze[col, row] = new MazeCell(col, row);    
             }
         }
     }

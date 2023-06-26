@@ -5,23 +5,25 @@ using UnityEngine;
 public class MazeBuilder : MonoBehaviour
 {
     [SerializeField] private GameData gameData;
+    [SerializeField] private ArenaMgr arenaMgr;
 
     public void BuildWorld(Maze maze)
     {
+        arenaMgr.Initialize(gameData);
+
         CalculateLevels(maze);
 
-        CreateMazeCells(maze);
+        arenaMgr.Create();
+
+        RenderArena(maze);
 
         AdjustPositionByLevel(maze);
     }
 
-    private void CreateMazeCells(Maze maze)
+    private void RenderArena(Maze maze)
     {
         float distance = 30.0f;
         float pathPos = 15.0f;
-
-        Space space5x5 = new Room5x5Space(gameData);
-        Space space3x3 = new Room3x3Space(gameData);
 
         for (int col = 0; col < maze.Width; col++)
         {
@@ -31,27 +33,49 @@ public class MazeBuilder : MonoBehaviour
 
                 MazeCell mazeCell = maze.GetMazeCell(col, row);
 
-                Space space = Random.Range(0, 2) == 0 ? space5x5 : space3x3;
+                Arena arena = arenaMgr.GetArena(col, row);
 
-                space.CreateFloor(mazeCell, center);
-                space.CreateSides(mazeCell, center);
+                arena.Create(mazeCell, center);
 
-                Vector3 position;
+                CreateAreaPaths(mazeCell, center, pathPos);
+            }
+        }
+    }
 
-                if (mazeCell.IsNorth())
-                {
-                    int level = mazeCell.GetNorthLower();
-                    position = new Vector3(center.x, center.y + level * gameData.tileRise, center.z + pathPos);
-                    Framework.CreateObject(gameData.tilePreFab, position, 0.0f);
-                }
+    /**
+     * CreateAreaPaths() -
+     */
+    private void CreateAreaPaths(MazeCell mazeCell, Vector3 center, float pathPos)
+    {
+        if (mazeCell.IsNorth())
+        {
+            int level = mazeCell.GetNorthLower();
+            Vector3 position = new Vector3(center.x, center.y + level * gameData.tileRise, center.z + pathPos);
 
-                if (mazeCell.IsEast())
-                {
-                    int level = mazeCell.GetEastLower();
-                    position = new Vector3(center.x + pathPos, center.y + level * gameData.tileRise, center.z);
-                    Framework.CreateObject(gameData.tilePreFab, position, 0.0f);
-                }
+            if (mazeCell.IsNorthEqual())
+            {
+                Framework.CreateObject(gameData.tilePreFab, position, 0.0f);
+            } 
+            else
+            {
+                float rotation = (mazeCell.IsNorthDown()) ? 0.0f : 180.0f;
+                Framework.CreateObject(gameData.stairsSimplePreFab, position, rotation);
+            }
+        }
 
+        if (mazeCell.IsEast())
+        {
+            int level = mazeCell.GetEastLower();
+            Vector3 position = new Vector3(center.x + pathPos, center.y + level * gameData.tileRise, center.z);
+
+            if (mazeCell.IsEastEqual())
+            {
+                Framework.CreateObject(gameData.tilePreFab, position, 0.0f);
+            } 
+            else
+            {
+                float rotation = (mazeCell.IsEastDown()) ? 90.0f : 270.0f;
+                Framework.CreateObject(gameData.stairsSimplePreFab, position, rotation);
             }
         }
     }

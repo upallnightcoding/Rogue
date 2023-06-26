@@ -2,19 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Room5x5Space : Space
+public class Room5x5Space : Arena
 {
     private readonly Vector3 NORTH_WALL_ROTATE = new Vector3(0.0f, 0.0f, 0.0f);
     private readonly Vector3 SOUTH_WALL_ROTATE = new Vector3(0.0f, 180.0f, 0.0f);
     private readonly Vector3 EAST_WALL_ROTATE = new Vector3(0.0f, 90.0f, 0.0f);
     private readonly Vector3 WEST_WALL_ROTATE = new Vector3(0.0f, -90.0f, 0.0f);
 
+    private GameObject runeTile = null;
+    private GameObject middleTile = null;
+
     public Room5x5Space(GameData gameData) : base(gameData)
     {
 
     }
 
-    public override void CreateFloor(MazeCell mazeCell, Vector3 center)
+    public override void Create(MazeCell mazeCell, Vector3 center)
+    {
+        CreateFloor(mazeCell, center);
+        CreateSides(mazeCell, center);
+    }
+
+    public void CreateFloor(MazeCell mazeCell, Vector3 center)
     {
         Vector3 position = new Vector3();
 
@@ -37,19 +46,30 @@ public class Room5x5Space : Space
         }
     }
 
-    public override void CreateSides(MazeCell mazeCell, Vector3 center)
+    public void CreateSides(MazeCell mazeCell, Vector3 center)
     {
         float distance = 2 * gameData.tileSize + gameData.tileSize / 2.0f;
 
         Transform parent = mazeCell.Parent.transform;
 
-        CreateWall(mazeCell.IsNorth(), center + new Vector3(0.0f, center.y, distance), NORTH_WALL_ROTATE, parent, mazeCell.IsNorthDown());
-        CreateWall(mazeCell.IsSouth(), center + new Vector3(0.0f, center.y, -distance), SOUTH_WALL_ROTATE, parent, mazeCell.IsSouthDown());
-        CreateWall(mazeCell.IsEast(), center + new Vector3(distance, center.y, 0.0f), EAST_WALL_ROTATE, parent, mazeCell.IsEastDown());
-        CreateWall(mazeCell.IsWest(), center + new Vector3(-distance, center.y, 0.0f), WEST_WALL_ROTATE, parent, mazeCell.IsWestDown());
+        CreateWall(mazeCell.IsNorth(), center + new Vector3(0.0f, center.y, distance), NORTH_WALL_ROTATE, parent);
+        CreateWall(mazeCell.IsSouth(), center + new Vector3(0.0f, center.y, -distance), SOUTH_WALL_ROTATE, parent);
+        CreateWall(mazeCell.IsEast(), center + new Vector3(distance, center.y, 0.0f), EAST_WALL_ROTATE, parent);
+        CreateWall(mazeCell.IsWest(), center + new Vector3(-distance, center.y, 0.0f), WEST_WALL_ROTATE, parent);
     }
 
-    private void CreateWall(bool hasPassage, Vector3 position, Vector3 rotation, Transform parent, bool createStairs)
+    /*public override void SetRune(GameObject runeTilePreFab)
+    {
+        if (middleTile != null)
+        {
+            GameObject go = Object.Instantiate(runeTilePreFab, middleTile.transform.position, middleTile.transform.rotation);
+            Object.Destroy(middleTile);
+            middleTile = go;
+            runeTile = go;
+        }
+    }*/
+
+    private void CreateWall(bool hasPassage, Vector3 position, Vector3 rotation, Transform parent)
     {
         GameObject passage = (hasPassage) ? gameData.archwayPreFab : Framework.PickFromList(gameData.railingPreFab);
 
@@ -63,8 +83,8 @@ public class Room5x5Space : Space
             Assemble(gameData.halfWallPreFab, "Slab02", 0.0f).
 
             Assemble(passage, "Slab03", 180.0f).
-            Assemble(gameData.halfWallPreFab, "Slab03", 0.0f, !createStairs).
-            Assemble(gameData.stairsSimplePreFab, "Slab03", 0.0f, createStairs).
+            Assemble(gameData.halfWallPreFab, "Slab03", 0.0f).
+            //Assemble(gameData.stairsSimplePreFab, "Slab03", 0.0f, createStairs).
 
             Assemble(gameData.railingPreFab, "Slab04", Framework.Rotate180Degree()).
             Assemble(gameData.halfWallPreFab, "Slab04", 0.0f).

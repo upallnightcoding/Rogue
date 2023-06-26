@@ -148,6 +148,11 @@ public class Framework
         return (fromList[selection]);
     }
 
+    public static GameObject CreateObject(GameObject preFab, GameObject orientation)
+    {
+        return (Object.Instantiate(preFab, orientation.transform.position, orientation.transform.rotation));
+    }
+
     public static GameObject CreateObject(GameObject[] preFab, Vector3 position, float rotation, GameObject parent = null)
     {
         return (CreateObject(PickFromList(preFab), position, rotation, parent));

@@ -16,6 +16,7 @@ MonoBehaviour:
   height: 5
   tileSize: 5
   tileRise: 2.5
+  playerStartingArena: {x: 120, y: 18.6, z: 120}
   moveSpeed: 4
   rotationSpeed: 10
   cameraFollowSpeed: 0.2

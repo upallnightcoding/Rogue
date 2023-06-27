@@ -12,13 +12,27 @@ public class Room5x5Space : Arena
     private GameObject runeTile = null;
     private GameObject middleTile = null;
 
+    private Vector3 centerPoint;
+
     public Room5x5Space(GameData gameData) : base(gameData)
     {
 
     }
 
+    public override bool IsStartingArena()
+    {
+        return (false);
+    }
+
+    public override Vector3 GetCenterPoint()
+    {
+        return (centerPoint);
+    }
+
     public override void Create(MazeCell mazeCell, Vector3 center)
     {
+        centerPoint = center;
+
         CreateFloor(mazeCell, center);
         CreateSides(mazeCell, center);
     }

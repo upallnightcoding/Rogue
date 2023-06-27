@@ -10,10 +10,14 @@ public class ArenaMgr : MonoBehaviour
 
     private Stack<Pair> pairStack = null;
 
+    //private Arena startingPointArena = null;
+
     private int width;
     private int height;
 
     public Arena GetArena(int col, int row) => (arenaMat[col, row]);
+
+    //public Vector3 GetStartingPoint() => (startingPointArena.GetCenterPoint());
 
     public void Initialize(GameData gameData)
     {
@@ -52,6 +56,9 @@ public class ArenaMgr : MonoBehaviour
         }
     }
 
+    /**
+     * Create() - 
+     */
     private void Create(Arena arena)
     { 
         Pair colRow = pairStack.Pop();

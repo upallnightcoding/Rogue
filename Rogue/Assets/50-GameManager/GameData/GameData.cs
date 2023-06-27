@@ -11,6 +11,9 @@ public class GameData : ScriptableObject
     public int tileSize;
     public float tileRise;
 
+    [Header("Shared Variables")]
+    public Vector3 playerStartingArena;
+
     [Header("Player Attributes")]
     public float moveSpeed;
     public float rotationSpeed;

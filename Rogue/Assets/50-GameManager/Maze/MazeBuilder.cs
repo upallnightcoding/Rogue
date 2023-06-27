@@ -92,6 +92,13 @@ public class MazeBuilder : MonoBehaviour
 
                 mazeCell.Parent.transform.position =
                     new Vector3(position.x, position.y + mazeCell.Level * gameData.tileRise, position.z);
+
+                Arena arena = arenaMgr.GetArena(col, row);
+
+                if (arena.IsStartingArena())
+                {
+                    gameData.playerStartingArena = arena.GetCenterPoint() + new Vector3(0.0f, 1.1f + mazeCell.Level * gameData.tileRise, 0.0f);
+                }
             }
         }
     }

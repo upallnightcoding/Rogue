@@ -11,6 +11,8 @@ public class Room3x3TileArena : Arena
 
     private GameObject runeTilePreFab = null;
 
+    private Vector3 centerPoint;
+
     public Room3x3TileArena(GameData gameData, GameObject runeTilePreFab) : base(gameData)
     {
         this.runeTilePreFab = runeTilePreFab;
@@ -22,8 +24,20 @@ public class Room3x3TileArena : Arena
         CreateSides(mazeCell, center);
     }
 
+    public override bool IsStartingArena()
+    {
+        return (false);
+    }
+
+    public override Vector3 GetCenterPoint()
+    {
+        return (centerPoint);
+    }
+
     public void CreateFloor(MazeCell mazeCell, Vector3 center)
     {
+        centerPoint = center;
+
         CreateTheFloor(mazeCell, center);
     }
 

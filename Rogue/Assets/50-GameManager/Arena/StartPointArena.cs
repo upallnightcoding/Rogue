@@ -4,9 +4,21 @@ using UnityEngine;
 
 public class StartPointArena : Arena
 {
+    private Vector3 centerPoint;
+
     public StartPointArena(GameData gameData) : base(gameData)
     {
 
+    }
+
+    public override Vector3 GetCenterPoint()
+    {
+        return (centerPoint);
+    }
+
+    public override bool IsStartingArena()
+    {
+        return (true);
     }
 
     public override void Create(MazeCell mazeCell, Vector3 center)
@@ -14,6 +26,8 @@ public class StartPointArena : Arena
         Framework.CreateObject(gameData.startPointPreFab, center, 0.0f, mazeCell.Parent);
 
         float distance = 2.0f * gameData.tileSize;
+
+        centerPoint = center;
 
         CreateSide(mazeCell.IsNorth(), center + new Vector3(0.0f, center.y, distance), mazeCell.Parent);
         CreateSide(mazeCell.IsSouth(), center + new Vector3(0.0f, center.y, -distance), mazeCell.Parent);

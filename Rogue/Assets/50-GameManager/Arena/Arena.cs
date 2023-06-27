@@ -12,4 +12,8 @@ public abstract class Arena
     }
 
     abstract public void Create(MazeCell mazeCell, Vector3 center);
+
+    abstract public bool IsStartingArena();
+
+    abstract public Vector3 GetCenterPoint();
 }

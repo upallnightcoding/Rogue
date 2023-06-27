@@ -9,6 +9,8 @@ public class Room3x3Arena : Arena
     private readonly Vector3 EAST_WALL_ROTATE = new Vector3(0.0f, 90.0f, 0.0f);
     private readonly Vector3 WEST_WALL_ROTATE = new Vector3(0.0f, -90.0f, 0.0f);
 
+    private Vector3 centerPoint;
+
     public Room3x3Arena(GameData gameData) : base(gameData)
     {
 
@@ -18,6 +20,16 @@ public class Room3x3Arena : Arena
     {
         CreateFloor(mazeCell, center);
         CreateSides(mazeCell, center);
+    }
+
+    public override Vector3 GetCenterPoint()
+    {
+        return (centerPoint);
+    }
+
+    public override bool IsStartingArena()
+    {
+        return (false);
     }
 
     private void CreateFloor(MazeCell mazeCell, Vector3 center)
@@ -30,6 +42,8 @@ public class Room3x3Arena : Arena
         float distance = 1 * gameData.tileSize + gameData.tileSize / 2.0f;
 
         Transform parent = mazeCell.Parent.transform;
+
+        centerPoint = center;
 
         CreateSide(mazeCell.IsNorth(), center + new Vector3(0.0f, center.y, distance), NORTH_WALL_ROTATE, parent);
         CreateSide(mazeCell.IsSouth(), center + new Vector3(0.0f, center.y, -distance), SOUTH_WALL_ROTATE, parent);

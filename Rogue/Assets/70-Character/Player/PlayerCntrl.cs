@@ -15,7 +15,7 @@ public class PlayerCntrl : MonoBehaviour
     private float gravitySpeed = 0.0f;
     private float gravity = -9.81f;
 
-    private PlayerState playerState = PlayerState.IDLE;
+    private PlayerState playerState = PlayerState.START;
 
     private void Awake()
     {
@@ -31,10 +31,13 @@ public class PlayerCntrl : MonoBehaviour
     private void Update()
     {
         Vector2 playerDirection = inputControls.GetMoveDirection();
-        Debug.Log($"Direction: {playerDirection.x}, {playerDirection.y}");
+        //Debug.Log($"Direction: {playerDirection.x}, {playerDirection.y}");
 
         switch (playerState)
         {
+            case PlayerState.START:
+                playerState = PlayerStart();
+                break;
             case PlayerState.IDLE:
                 playerState = PlayerIdle(playerDirection);
                 break;
@@ -49,6 +52,12 @@ public class PlayerCntrl : MonoBehaviour
     private void LateUpdate()
     {
         cameraCntrl.HandleAllCameraMovement();
+    }
+
+    private PlayerState PlayerStart()
+    {
+        transform.position = gameData.playerStartingArena;
+        return ((gameData.playerStartingArena == Vector3.zero) ? PlayerState.START : PlayerState.IDLE);
     }
 
     private PlayerState PlayerMove(Vector2 playerDirection, float dt)
@@ -68,8 +77,7 @@ public class PlayerCntrl : MonoBehaviour
         if (!charCntrl.isGrounded)
         {
             gravitySpeed += gravity * Time.deltaTime;
-        } else
-        {
+        } else {
             gravitySpeed = 0.0f;
         }
 
@@ -103,6 +111,7 @@ public class PlayerCntrl : MonoBehaviour
 
     private enum PlayerState
     {
+        START,
         IDLE,
         MOVE,
         JUMP

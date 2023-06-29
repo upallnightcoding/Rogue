@@ -66,24 +66,15 @@ public class Room5x5Space : Arena
 
         Transform parent = mazeCell.Parent.transform;
 
-        CreateWall(mazeCell.IsNorth(), center + new Vector3(0.0f, center.y, distance), NORTH_WALL_ROTATE, parent);
-        CreateWall(mazeCell.IsSouth(), center + new Vector3(0.0f, center.y, -distance), SOUTH_WALL_ROTATE, parent);
-        CreateWall(mazeCell.IsEast(), center + new Vector3(distance, center.y, 0.0f), EAST_WALL_ROTATE, parent);
-        CreateWall(mazeCell.IsWest(), center + new Vector3(-distance, center.y, 0.0f), WEST_WALL_ROTATE, parent);
+        int level = mazeCell.Level;
+
+        CreateWall(mazeCell.IsNorth(), center + new Vector3(0.0f, center.y, distance), NORTH_WALL_ROTATE, parent, level);
+        CreateWall(mazeCell.IsSouth(), center + new Vector3(0.0f, center.y, -distance), SOUTH_WALL_ROTATE, parent, level);
+        CreateWall(mazeCell.IsEast(), center + new Vector3(distance, center.y, 0.0f), EAST_WALL_ROTATE, parent, level);
+        CreateWall(mazeCell.IsWest(), center + new Vector3(-distance, center.y, 0.0f), WEST_WALL_ROTATE, parent, level);
     }
 
-    /*public override void SetRune(GameObject runeTilePreFab)
-    {
-        if (middleTile != null)
-        {
-            GameObject go = Object.Instantiate(runeTilePreFab, middleTile.transform.position, middleTile.transform.rotation);
-            Object.Destroy(middleTile);
-            middleTile = go;
-            runeTile = go;
-        }
-    }*/
-
-    private void CreateWall(bool hasPassage, Vector3 position, Vector3 rotation, Transform parent)
+    private void CreateWall(bool hasPassage, Vector3 position, Vector3 rotation, Transform parent, int level)
     {
         GameObject passage = (hasPassage) ? gameData.archwayPreFab : Framework.PickFromList(gameData.railingPreFab);
 
@@ -108,5 +99,20 @@ public class Room5x5Space : Arena
             Position(position).
             Rotate(rotation).
             Build();
+
+        for (int l = 0; l < level - 1; l++)
+        {
+            go = framework.
+                Blueprint(gameData.wallFramework).
+                Assemble(gameData.wallPreFab, "Slab01", 0.0f).
+                Assemble(gameData.wallPreFab, "Slab02", 0.0f).
+                Assemble(gameData.wallPreFab, "Slab03", 0.0f).
+                Assemble(gameData.wallPreFab, "Slab04", 0.0f).
+                Assemble(gameData.wallPreFab, "Slab05", 0.0f).
+                Position(position - new Vector3(0.0f, l * 5.0f + 2.5f, 0.0f)).
+                Parent(parent).
+                Rotate(rotation).
+                Build();
+        }
     }
 }

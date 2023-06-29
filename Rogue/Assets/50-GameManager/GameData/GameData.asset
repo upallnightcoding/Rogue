@@ -16,7 +16,7 @@ MonoBehaviour:
   height: 5
   tileSize: 5
   tileRise: 2.5
-  playerStartingArena: {x: 120, y: 18.6, z: 120}
+  playerStartingArena: {x: 90, y: 8.6, z: 30}
   moveSpeed: 4
   rotationSpeed: 10
   cameraFollowSpeed: 0.2
@@ -41,9 +41,6 @@ MonoBehaviour:
   - {fileID: 7016192608836193391, guid: c0a90f02475c14f4c87efede6771995f, type: 3}
   - {fileID: 3275160855536214927, guid: e35acafa86c19724885f2972fe6ce325, type: 3}
   - {fileID: 8616660563012961485, guid: 9bc22e2e3997cfc46b696326ce1dde77, type: 3}
-  wallsPreFab:
-  - {fileID: 4268032046810510070, guid: 281a97609d6b7b24ab0e539bec9108a5, type: 3}
-  - {fileID: 6370388904105371858, guid: efa4f13bd3ff1d14b95124ab5f551d5c, type: 3}
   doorPreFab: []
   railingPreFab:
   - {fileID: 5827140412738385035, guid: 2dc85673346851e41980b25852e28c9d, type: 3}
@@ -56,9 +53,18 @@ MonoBehaviour:
   pillarPreFab:
   - {fileID: 6192763025702823140, guid: 9c71a1993d0ba6e4d8dc6403a1510e16, type: 3}
   - {fileID: 14139420178682671, guid: a7a36e1305303094da93fe346e2cb206, type: 3}
+  wallPreFab:
+  - {fileID: 4794844555196191149, guid: b9a01835cf71b4f4d80978464b4f0866, type: 3}
+  - {fileID: 6984580392084061675, guid: e98d86e03ab61794cb592c1e4ee7acfa, type: 3}
+  - {fileID: 4455231734959756233, guid: a13547dd82e233748bd81a0325f33719, type: 3}
+  - {fileID: 1160338759951493775, guid: 9d1a8293b163d4e489a5221e5e3fa3a1, type: 3}
+  - {fileID: 7996557773018246507, guid: d2ec1c90a92d98343aec02b3f84d77e8, type: 3}
+  - {fileID: 3476315975769216656, guid: fd3c7ed03b7534740ae7d522753153d8, type: 3}
+  - {fileID: 6759783283480128854, guid: c8aca57559c835a4dad6a0e0d78317cb, type: 3}
   startPointPreFab: {fileID: 4419373522502995423, guid: a729a98df5e5b2f40a1d3d4751a5f0c8, type: 3}
   stairsSimplePreFab: {fileID: 7502303560055709936, guid: 2165c0006db11204d98311e534275df9, type: 3}
   halfWallPreFab: {fileID: 6427280670913428641, guid: fd29c168c1c5d704c846756e0a144102, type: 3}
   archwayPreFab: {fileID: 9140835371998827733, guid: 6acf22530292f2c43812af09cb686322, type: 3}
+  structurePreFab: {fileID: 6650900219717787761, guid: 05622142af4e86442ba576a590be688d, type: 3}
   tileFramwork: {fileID: 413975351264230381, guid: 787c330b3b0355a4b95688a8783e8599, type: 3}
   wallFramework: {fileID: 6096687048522334071, guid: ea7c1ecef3883914aa1154a480a7ecaa, type: 3}

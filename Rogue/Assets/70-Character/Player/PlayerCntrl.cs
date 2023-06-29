@@ -105,6 +105,7 @@ public class PlayerCntrl : MonoBehaviour
     private void OnJump()
     {
         Debug.Log("Player Controller Jump ...");
+        GameManager.Instance.AddGemCount(10);
     }
 
     private bool IsPlayerMoving(Vector2 playerDirection) => (int)playerDirection.magnitude != 0;

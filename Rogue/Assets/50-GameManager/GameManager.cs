@@ -6,6 +6,21 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private GameData gameData;
     [SerializeField] private MazeBuilder mazeBuilder;
+    [SerializeField] private UICntrl uiCntrl;
+
+    public static GameManager Instance { get; private set; }
+
+    private void Awake()
+    {
+        if ((Instance != null) && (Instance != this))
+        {
+            Destroy(this);
+        } 
+        else
+        {
+            Instance = this;
+        }
+    }
 
     void Start()
     {
@@ -14,8 +29,8 @@ public class GameManager : MonoBehaviour
         mazeBuilder.BuildWorld(maze);
     }
 
-    void Update()
+    public void AddGemCount(int count)
     {
-        
+        uiCntrl.AddGemCount(count);
     }
 }

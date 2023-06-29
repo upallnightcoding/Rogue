@@ -47,20 +47,13 @@ public class Room3x3TileArena : Arena
 
         Transform parent = mazeCell.Parent.transform;
 
-        CreateSide(mazeCell.IsNorth(), center + new Vector3(0.0f, center.y, distance), NORTH_WALL_ROTATE, parent);
-        CreateSide(mazeCell.IsSouth(), center + new Vector3(0.0f, center.y, -distance), SOUTH_WALL_ROTATE, parent);
-        CreateSide(mazeCell.IsEast(), center + new Vector3(distance, center.y, 0.0f), EAST_WALL_ROTATE, parent);
-        CreateSide(mazeCell.IsWest(), center + new Vector3(-distance, center.y, 0.0f), WEST_WALL_ROTATE, parent);
-    }
+        int level = mazeCell.Level;
 
-    /*public override void SetRune(GameObject runeTilePreFab)
-    {
-        GameObject go = Framework.CreateObject(runeTilePreFab, middleTile);
-        go.transform.parent = middleTile.transform.parent;
-        Object.Destroy(middleTile);
-        middleTile = go;
-        runeTile = go;
-    }*/
+        CreateSide(mazeCell.IsNorth(), center + new Vector3(0.0f, center.y, distance), NORTH_WALL_ROTATE, parent, level);
+        CreateSide(mazeCell.IsSouth(), center + new Vector3(0.0f, center.y, -distance), SOUTH_WALL_ROTATE, parent, level);
+        CreateSide(mazeCell.IsEast(), center + new Vector3(distance, center.y, 0.0f), EAST_WALL_ROTATE, parent, level);
+        CreateSide(mazeCell.IsWest(), center + new Vector3(-distance, center.y, 0.0f), WEST_WALL_ROTATE, parent, level);
+    }
 
     private void CreateTheFloor(MazeCell mazeCell, Vector3 center)
     {
@@ -96,7 +89,7 @@ public class Room3x3TileArena : Arena
         return (Framework.CreateObject(preFab, position, Framework.Rotate90Degree()));
     }
 
-    private void CreateSide(bool hasPassage, Vector3 position, Vector3 rotation, Transform parent)
+    private void CreateSide(bool hasPassage, Vector3 position, Vector3 rotation, Transform parent, int level)
     {
         GameObject passage = null;
         GameObject archway = null;
@@ -129,6 +122,19 @@ public class Room3x3TileArena : Arena
             Parent(parent).
             Rotate(rotation).
             Build();
+
+        for (int l = 0; l < level-1; l++)
+        {
+            go = framework.
+                Blueprint(gameData.wallFramework).
+                Assemble(gameData.wallPreFab, "Slab02", 0.0f).
+                Assemble(gameData.wallPreFab, "Slab03", 0.0f).
+                Assemble(gameData.wallPreFab, "Slab04", 0.0f).
+                Position(position - new Vector3(0.0f, l * 5.0f + 2.5f, 0.0f)).
+                Parent(parent).
+                Rotate(rotation).
+                Build();
+        }
     }
 
     

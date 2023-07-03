@@ -21,7 +21,12 @@ public class StartPointArena : Arena
         return (true);
     }
 
-    public override void Create(MazeCell mazeCell, Vector3 center)
+    public override RuneCntrl GetRuneCntrl()
+    {
+        return (null);
+    }
+
+    public override void Render(MazeCell mazeCell, Vector3 center)
     {
         Framework.CreateObject(gameData.startPointPreFab, center, 0.0f, mazeCell.Parent);
 
@@ -44,4 +49,6 @@ public class StartPointArena : Arena
             Framework.CreateObject(tile, position, Framework.Rotate90Degree(), parent);
         }
     }
+
+    
 }

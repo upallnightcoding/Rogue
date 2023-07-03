@@ -11,9 +11,11 @@ public abstract class Arena
         this.gameData = gameData;
     }
 
-    abstract public void Create(MazeCell mazeCell, Vector3 center);
+    abstract public void Render(MazeCell mazeCell, Vector3 center);
 
     abstract public bool IsStartingArena();
 
     abstract public Vector3 GetCenterPoint();
+
+    abstract public RuneCntrl GetRuneCntrl();
 }

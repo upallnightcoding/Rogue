@@ -9,16 +9,18 @@ public class Room3x3TileArena : Arena
     private readonly Vector3 EAST_WALL_ROTATE = new Vector3(0.0f, 90.0f, 0.0f);
     private readonly Vector3 WEST_WALL_ROTATE = new Vector3(0.0f, -90.0f, 0.0f);
 
-    private GameObject runeTilePreFab = null;
+    private int runeTileIndex = -1;
+
+    private RuneCntrl runeCntrl = null;
 
     private Vector3 centerPoint;
 
-    public Room3x3TileArena(GameData gameData, GameObject runeTilePreFab) : base(gameData)
+    public Room3x3TileArena(GameData gameData, int runeTileIndex = -1) : base(gameData)
     {
-        this.runeTilePreFab = runeTilePreFab;
+        this.runeTileIndex = runeTileIndex;
     }
 
-    public override void Create(MazeCell mazeCell, Vector3 center)
+    public override void Render(MazeCell mazeCell, Vector3 center)
     {
         CreateFloor(mazeCell, center);
         CreateSides(mazeCell, center);
@@ -32,6 +34,11 @@ public class Room3x3TileArena : Arena
     public override Vector3 GetCenterPoint()
     {
         return (centerPoint);
+    }
+
+    public override RuneCntrl GetRuneCntrl()
+    {
+        return (runeCntrl);
     }
 
     public void CreateFloor(MazeCell mazeCell, Vector3 center)
@@ -67,26 +74,32 @@ public class Room3x3TileArena : Arena
                 position.y = center.y;
                 position.z = center.z + z * gameData.tileSize; 
 
-                GameObject go = CreateTile(x, z, position);
+                GameObject go = CreateTile(x, z, position, mazeCell);
                 go.transform.parent = mazeCell.Parent.transform;
             }
         }
     }
 
-    private GameObject CreateTile(int x, int z, Vector3 position)
+    private GameObject CreateTile(int x, int z, Vector3 position, MazeCell mazeCell)
     {
-        GameObject preFab;
+        GameObject go;
+        float rotation = Framework.Rotate90Degree();
 
-        if ((x == 0) && (z == 0))
+        if ((x == 0) && (z == 0) && (runeTileIndex != -1))
         {
-            preFab = runeTilePreFab;
+            GameObject runeTilePreFab = gameData.runePreFab[runeTileIndex];
+            go = Framework.CreateObject(runeTilePreFab, position, rotation);
+            runeCntrl = go.GetComponent<RuneCntrl>();
+            runeCntrl.RuneTileIndex = runeTileIndex;
+            runeCntrl.Position = position;
         }
         else
         {
-            preFab = Framework.PickFromList(gameData.tilePreFab);
+            GameObject preFab = Framework.PickFromList(gameData.tilePreFab);
+            go = Framework.CreateObject(preFab, position, rotation);
         }
 
-        return (Framework.CreateObject(preFab, position, Framework.Rotate90Degree()));
+        return (go);
     }
 
     private void CreateSide(bool hasPassage, Vector3 position, Vector3 rotation, Transform parent, int level)

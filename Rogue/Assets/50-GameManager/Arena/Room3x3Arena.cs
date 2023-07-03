@@ -16,7 +16,7 @@ public class Room3x3Arena : Arena
 
     }
 
-    public override void Create(MazeCell mazeCell, Vector3 center)
+    public override void Render(MazeCell mazeCell, Vector3 center)
     {
         CreateFloor(mazeCell, center);
         CreateSides(mazeCell, center);
@@ -30,6 +30,11 @@ public class Room3x3Arena : Arena
     public override bool IsStartingArena()
     {
         return (false);
+    }
+
+    public override RuneCntrl GetRuneCntrl()
+    {
+        return (null);
     }
 
     private void CreateFloor(MazeCell mazeCell, Vector3 center)

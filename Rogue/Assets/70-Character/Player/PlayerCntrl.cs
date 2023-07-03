@@ -15,7 +15,7 @@ public class PlayerCntrl : MonoBehaviour
     private float gravitySpeed = 0.0f;
     private float gravity = -9.81f;
 
-    private PlayerState playerState = PlayerState.START;
+    private PlayerState playerState = PlayerState.INIT;
 
     private void Awake()
     {
@@ -35,6 +35,9 @@ public class PlayerCntrl : MonoBehaviour
 
         switch (playerState)
         {
+            case PlayerState.INIT:
+                playerState = PlayerInit();
+                break;
             case PlayerState.START:
                 playerState = PlayerStart();
                 break;
@@ -52,6 +55,16 @@ public class PlayerCntrl : MonoBehaviour
     private void LateUpdate()
     {
         cameraCntrl.HandleAllCameraMovement();
+    }
+
+    public void StartPlay()
+    {
+        playerState = PlayerState.START;
+    }
+
+    private PlayerState PlayerInit()
+    {
+        return ((playerState == PlayerState.INIT) ? PlayerState.INIT : PlayerState.START);
     }
 
     private PlayerState PlayerStart()
@@ -112,6 +125,7 @@ public class PlayerCntrl : MonoBehaviour
 
     private enum PlayerState
     {
+        INIT,
         START,
         IDLE,
         MOVE,

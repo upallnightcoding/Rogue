@@ -13,14 +13,14 @@ public class MazeBuilder : MonoBehaviour
 
         CalculateLevels(maze);
 
-        arenaMgr.Create();
+        arenaMgr.CreateAllArenas();
 
-        RenderArena(maze);
+        RenderWorld(maze);
 
         AdjustPositionByLevel(maze);
     }
 
-    private void RenderArena(Maze maze)
+    private void RenderWorld(Maze maze)
     {
         float distance = 30.0f;
         float pathPos = 15.0f;
@@ -33,13 +33,13 @@ public class MazeBuilder : MonoBehaviour
 
                 MazeCell mazeCell = maze.GetMazeCell(col, row);
 
-                Arena arena = arenaMgr.GetArena(col, row);
-
-                arena.Create(mazeCell, center);
+                arenaMgr.Render(col, row, mazeCell, center);
 
                 CreateAreaPaths(mazeCell, center, pathPos);
             }
         }
+
+        arenaMgr.TurnOn();
     }
 
     /**

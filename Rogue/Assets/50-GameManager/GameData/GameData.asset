@@ -16,9 +16,12 @@ MonoBehaviour:
   height: 5
   tileSize: 5
   tileRise: 2.5
-  playerStartingArena: {x: 90, y: 8.6, z: 30}
+  playerStartingArena: {x: 0, y: 1.1, z: 60}
+  FXBeacon: {fileID: 3012838433371015908, guid: d8dfbb93b41cd994eaaa4c9ed1c8f59c, type: 3}
   moveSpeed: 4
   rotationSpeed: 10
+  runeOn: {fileID: 2100000, guid: 42b64fdb315e3054ea757d8d1c4bcfa7, type: 2}
+  runeOff: {fileID: 2100000, guid: 0574116a7188c654ab34fcd54a2d0ecc, type: 2}
   cameraFollowSpeed: 0.2
   cameraLookSpeed: 0.3
   cameraPivotSpeed: 0.3

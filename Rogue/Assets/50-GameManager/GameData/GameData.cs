@@ -14,9 +14,16 @@ public class GameData : ScriptableObject
     [Header("Shared Variables")]
     public Vector3 playerStartingArena;
 
+    [Header("FX")]
+    public GameObject FXBeacon;
+
     [Header("Player Attributes")]
     public float moveSpeed;
     public float rotationSpeed;
+
+    [Header("Runes")]
+    public Material runeOn;
+    public Material runeOff;
 
     [Header("Camera Attributes")]
     public float cameraFollowSpeed;

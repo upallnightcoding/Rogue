@@ -8,7 +8,11 @@ public class ArenaMgr : MonoBehaviour
 
     private Arena[,] arenaMat = null;
 
-    private Stack<Pair> pairStack = null;
+    private Stack<Pair> colRowStack = null;
+
+    private RuneCntrl[] runeCntrlList = null;
+
+    private int currentRune = 0;
 
     //private Arena startingPointArena = null;
 
@@ -27,19 +31,46 @@ public class ArenaMgr : MonoBehaviour
 
         this.arenaMat = new Arena[width, height];
 
-        this.pairStack = CreatePairStack();
+        this.runeCntrlList = new RuneCntrl[5];
+
+        this.colRowStack = CreatePairStack();
     }
 
-    public void Create()
+    /**
+     * Render() - 
+     */
+    public void Render(int col, int row, MazeCell mazeCell, Vector3 center)
     {
+        Arena arena = GetArena(col, row);
+
+        arena.Render(mazeCell, center);
+
+        RuneCntrl runeCntrl = arena.GetRuneCntrl();
+
+        if (runeCntrl != null)
+        {
+            runeCntrlList[runeCntrl.RuneTileIndex] = runeCntrl;
+        }
+    }
+
+    public void TurnOn()
+    {
+        runeCntrlList[currentRune].TurnRunOn();
+    }
+
+    public void CreateAllArenas()
+    {
+        // Define the starting arena of the game.
         Create(new StartPointArena(gameData));
 
-        foreach(GameObject tile in gameData.runePreFab)
+        // Define the five rune locations in the game.
+        for (int runeTileIndex = 0; runeTileIndex < gameData.runePreFab.Length; runeTileIndex++)
         {
-            Create(new Room3x3TileArena(gameData, tile));
+            Create(new Room3x3TileArena(gameData, runeTileIndex));
         }
 
-        while(pairStack.Count > 0)
+        // Layout the remaining arenas in the game.
+        while(colRowStack.Count > 0)
         {
             Arena arena;
                 
@@ -61,20 +92,20 @@ public class ArenaMgr : MonoBehaviour
      */
     private void Create(Arena arena)
     { 
-        Pair colRow = pairStack.Pop();
+        Pair colRow = colRowStack.Pop();
 
         arenaMat[colRow.Col, colRow.Row] = arena;
     }
 
     private Stack<Pair> CreatePairStack()
     {
-        List<Pair> pairList = new List<Pair>();
+        List<Pair> colRowList = new List<Pair>();
 
         for (int col = 0; col < width; col++)
         {
             for (int row = 0; row < height; row++)
             {
-                pairList.Add(new Pair(col, row));
+                colRowList.Add(new Pair(col, row));
             }
         }
 
@@ -86,19 +117,19 @@ public class ArenaMgr : MonoBehaviour
             int t1 = Random.Range(0, t);
             int t2 = Random.Range(0, t);
 
-            Pair temp = pairList[t1];
-            pairList[t1] = pairList[t2];
-            pairList[t2] = temp;
+            Pair temp = colRowList[t1];
+            colRowList[t1] = colRowList[t2];
+            colRowList[t2] = temp;
         }
 
-        Stack<Pair> pairStack = new Stack<Pair>();
+        Stack<Pair> colRowStack = new Stack<Pair>();
 
-        foreach(Pair pair in pairList)
+        foreach(Pair pair in colRowList)
         {
-            pairStack.Push(pair);
+            colRowStack.Push(pair);
         }
 
-        return (pairStack);
+        return (colRowStack);
     }
 
     private class Pair

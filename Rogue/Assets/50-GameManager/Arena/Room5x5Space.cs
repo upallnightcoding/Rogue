@@ -24,12 +24,17 @@ public class Room5x5Space : Arena
         return (false);
     }
 
+    public override RuneCntrl GetRuneCntrl()
+    {
+        return (null);
+    }
+
     public override Vector3 GetCenterPoint()
     {
         return (centerPoint);
     }
 
-    public override void Create(MazeCell mazeCell, Vector3 center)
+    public override void Render(MazeCell mazeCell, Vector3 center)
     {
         centerPoint = center;
 

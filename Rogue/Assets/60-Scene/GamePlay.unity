@@ -2878,6 +2878,7 @@ MonoBehaviour:
   settingPanel: {fileID: 1146729124}
   gamePanel: {fileID: 2010553331}
   quitPanel: {fileID: 2013005726}
+  player: {fileID: 1247441290}
 --- !u!1 &759762215
 GameObject:
   m_ObjectHideFlags: 0

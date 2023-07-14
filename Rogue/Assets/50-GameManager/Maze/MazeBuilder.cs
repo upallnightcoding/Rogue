@@ -97,7 +97,8 @@ public class MazeBuilder : MonoBehaviour
 
                 if (arena.IsStartingArena())
                 {
-                    gameData.playerStartingArena = arena.GetCenterPoint() + new Vector3(0.0f, 1.1f + mazeCell.Level * gameData.tileRise, 0.0f);
+                    gameData.playerStartingArena = 
+                        arena.GetCenterPoint() + new Vector3(0.0f, 1.1f + mazeCell.Level * gameData.tileRise, 0.0f);
                 }
             }
         }

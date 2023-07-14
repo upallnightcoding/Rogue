@@ -44,6 +44,7 @@ public class GameData : ScriptableObject
     public GameObject stairsSimplePreFab;
     public GameObject halfWallPreFab;
     public GameObject archwayPreFab;
+    public GameObject archwayDoorPreFab;
     public GameObject structurePreFab;
 
     [Header("Frameworks")]

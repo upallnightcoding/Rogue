@@ -28,8 +28,6 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         uiCntrl.SelectStartPanel();
-
-        playerCntrl.StartPlay();
     }
 
     public void StartGame()
@@ -39,6 +37,8 @@ public class GameManager : MonoBehaviour
         Maze maze = new Maze(gameData);
 
         mazeBuilder.BuildWorld(maze);
+
+        playerCntrl.StartPlay();
     }
 
     public void SettingGame()

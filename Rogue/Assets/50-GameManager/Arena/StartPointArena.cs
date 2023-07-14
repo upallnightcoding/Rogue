@@ -49,6 +49,4 @@ public class StartPointArena : Arena
             Framework.CreateObject(tile, position, Framework.Rotate90Degree(), parent);
         }
     }
-
-    
 }

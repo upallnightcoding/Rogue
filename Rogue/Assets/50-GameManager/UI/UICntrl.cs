@@ -13,6 +13,7 @@ public class UICntrl : MonoBehaviour
     [SerializeField] private GameObject settingPanel;
     [SerializeField] private GameObject gamePanel;
     [SerializeField] private GameObject quitPanel;
+    [SerializeField] private GameObject player;
 
     private int gemCount = 0;
 
@@ -39,6 +40,7 @@ public class UICntrl : MonoBehaviour
         settingPanel.SetActive(false);
         gamePanel.SetActive(false);
         quitPanel.SetActive(false);
+        player.SetActive(false);
     }
 
     public void SelectGamePanel()
@@ -47,6 +49,7 @@ public class UICntrl : MonoBehaviour
         settingPanel.SetActive(false);
         gamePanel.SetActive(true);
         quitPanel.SetActive(false);
+        player.SetActive(true);
     }
 
     public void QuitGamePanel()
@@ -55,6 +58,7 @@ public class UICntrl : MonoBehaviour
         settingPanel.SetActive(false);
         gamePanel.SetActive(false);
         quitPanel.SetActive(true);
+        player.SetActive(false);
     }
 
     [Serializable]

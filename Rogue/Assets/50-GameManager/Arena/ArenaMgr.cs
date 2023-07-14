@@ -72,16 +72,16 @@ public class ArenaMgr : MonoBehaviour
         // Layout the remaining arenas in the game.
         while(colRowStack.Count > 0)
         {
-            Arena arena;
+            Arena arena = new Skeleton5x5Arena(gameData);
                 
-            if (Random.Range(0, 2) == 0)
+            /*if (Random.Range(0, 2) == 0)
             {
                 arena = new Room3x3Arena(gameData);
             } 
             else
             {
                 arena = new Room5x5Space(gameData);
-            }
+            }*/
 
             Create(arena);
         }

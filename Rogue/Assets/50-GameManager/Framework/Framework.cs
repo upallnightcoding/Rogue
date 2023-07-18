@@ -23,29 +23,39 @@ public class Framework
         return(Assemble(additionList[selection], anchorName, turn));
     }
 
-    public Framework Assemble(GameObject go, string anchorName, float yRotate = 0.0f, bool create = true)
+    public Framework Assemble(GameObject prefab, string anchorName, float yRotate = 0.0f, bool create = true)
     {
-        if ((go != null) && (create))
+        GameObject go = null;
+        return (Assemble(prefab, anchorName, yRotate, create, out go));
+    }
+
+    public Framework Assemble(GameObject prefab, string anchorName, float yRotate, bool create, out GameObject go)
+    {
+        go = null;
+
+        if ((prefab != null) && (create))
         {
             Transform anchors = model.transform.Find("Anchors");
             Transform anchor = anchors.Find(anchorName);
             
-            if (IsAPreFab(go))
+            if (IsAPreFab(prefab))
             {
-                activeGo = Object.Instantiate(go, anchor);
+                activeGo = Object.Instantiate(prefab, anchor);
                 activeGo.transform.rotation = Quaternion.Euler(new Vector3(0.0f, yRotate, 0.0f));
             } else {
-                go.transform.position = anchor.transform.position;
-                go.transform.rotation = Quaternion.Euler(new Vector3(0.0f, yRotate, 0.0f));
-                go.transform.parent = anchor;
-                activeGo = go;
+                prefab.transform.position = anchor.transform.position;
+                prefab.transform.rotation = Quaternion.Euler(new Vector3(0.0f, yRotate, 0.0f));
+                prefab.transform.parent = anchor;
+                activeGo = prefab;
             }
+
+            go = activeGo;
         }
 
         return(this);
     }
 
-    public Framework Assemble(IFramework frame)
+    /*public Framework Assemble(IFramework frame)
     {
         if ((frame.GetGameObject() != null) && (frame.GetCreate()))
         {
@@ -76,7 +86,7 @@ public class Framework
         }
 
         return (this);
-    }
+    }*/
 
     public Framework Decorate(GameObject[] go, int count, float xRange, float zRange, float yRotate = 0.0f) 
     {
@@ -160,12 +170,20 @@ public class Framework
 
     public static GameObject CreateObject(GameObject preFab, Vector3 position, float rotation, GameObject parent = null)
     {
-        GameObject go = Object.Instantiate(preFab, position, Quaternion.identity);
-        go.transform.Rotate(new Vector3(0.0f, rotation, 0.0f));
+        GameObject go = null;
 
         if (parent != null)
         {
+            //go = Object.Instantiate(preFab, position, Quaternion.identity, parent.transform);
+            go = Object.Instantiate(preFab, parent.transform);
             go.transform.parent = parent.transform;
+            go.transform.Rotate(new Vector3(0.0f, rotation, 0.0f));
+            go.transform.localPosition = position;
+        }  
+        else
+        {
+            go = Object.Instantiate(preFab, position, Quaternion.identity);
+            go.transform.Rotate(new Vector3(0.0f, rotation, 0.0f));
         }
 
         return (go);

@@ -4,20 +4,22 @@ using UnityEngine;
 
 public class ArchwayDoorCntrl : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private GameObject fxDoor;
 
-    // Update is called once per frame
-    void Update()
+    public Skeleton5x5Arena arena { set; get; }
+
+    public void ShutArchway()
     {
-        
+        fxDoor.SetActive(true);
     }
 
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("Archway Door ...");
+
+        if (other.CompareTag("Player"))
+        {
+            arena.ShutAllArchway(other.gameObject);
+        }
     }
 }

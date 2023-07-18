@@ -31,6 +31,9 @@ public class GameData : ScriptableObject
     public float cameraPivotSpeed;
     public float minmaxPivotAngle;
 
+    [Header("Enemies")]
+    public GameObject skeletonSlavePreFab;
+
     [Header("PreFabs")]
     public GameObject[] tilePreFab;
     public GameObject[] tileOffSetPreFab;

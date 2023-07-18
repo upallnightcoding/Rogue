@@ -94,7 +94,6 @@ public class Room5x5Space : Arena
 
             Assemble(passage, "Slab03", 180.0f).
             Assemble(gameData.halfWallPreFab, "Slab03", 0.0f).
-            //Assemble(gameData.stairsSimplePreFab, "Slab03", 0.0f, createStairs).
 
             Assemble(gameData.railingPreFab, "Slab04", Framework.Rotate180Degree()).
             Assemble(gameData.halfWallPreFab, "Slab04", 0.0f).

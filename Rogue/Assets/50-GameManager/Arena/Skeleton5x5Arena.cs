@@ -45,9 +45,6 @@ public class Skeleton5x5Arena : Arena
             cntrl.ShutArchway();
         }
 
-        //Vector3 position = centerPoint + new Vector3(0.0f, 1.1f + mazeCell.Level * gameData.tileRise, 0.0f);
-
-        //GameObject seleton = Framework.CreateObject(gameData.skeletonSlavePreFab, centerPoint, Framework.Rotate90Degree(), mazeCell.Parent);
         Vector3 position = centerPoint + new Vector3(0.0f, 1.1f + mazeCell.Level * gameData.tileRise, 0.0f);
         GameObject seleton = Framework.CreateObject(gameData.skeletonSlavePreFab, position, Framework.Rotate90Degree());
         seleton.GetComponent<SeletonSlaveCntrl>().SetPlayer(player);

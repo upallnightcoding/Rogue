@@ -10,6 +10,7 @@ public class GameData : ScriptableObject
     public int height;
     public int tileSize;
     public float tileRise;
+    public GameMode gameMode;
 
     [Header("Shared Variables")]
     public Vector3 playerStartingArena;
@@ -24,6 +25,7 @@ public class GameData : ScriptableObject
     [Header("Runes")]
     public Material runeOn;
     public Material runeOff;
+    public int[] runePoints;
 
     [Header("Camera Attributes")]
     public float cameraFollowSpeed;
@@ -53,4 +55,13 @@ public class GameData : ScriptableObject
     [Header("Frameworks")]
     public GameObject tileFramwork;
     public GameObject wallFramework;
+
+    public bool IsDevelopmentMode() => (gameMode == GameMode.DEVELOPMENT);
+    public bool IsCombatMode() => (gameMode == GameMode.COMBAT);
+
+    public enum GameMode
+    {
+        DEVELOPMENT,
+        COMBAT
+    }
 }

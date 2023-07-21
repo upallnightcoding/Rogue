@@ -15,24 +15,11 @@ public class UICntrl : MonoBehaviour
     [SerializeField] private GameObject quitPanel;
     [SerializeField] private GameObject player;
 
-    private int gemCount = 0;
+    void Start() => gemCountText.text = "";
 
-    void Start()
-    {
-        gemCountText.text = "";
-    }
+    public void DisplayGem(int count) => gemCountText.text = count.ToString();
 
-    public void AddGemCount(int count)
-    {
-        gemCount += count;
-
-        gemCountText.text = gemCount.ToString();
-    }
-
-    public void SelectRune(int runeTileIndex)
-    {
-        runeUI[runeTileIndex].SelectRune();
-    }
+    public void SelectRune(int runeTileIndex) => runeUI[runeTileIndex].SelectRune();
 
     public void SelectStartPanel()
     {

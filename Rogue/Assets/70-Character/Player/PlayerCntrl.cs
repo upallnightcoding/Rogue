@@ -26,6 +26,16 @@ public class PlayerCntrl : MonoBehaviour
     private void Start()
     {
         InputControls.OnJump += OnJump;
+        InputControls.OnDefence1 += OnDefence1;
+        InputControls.OnDefence2 += OnDefence2;
+        InputControls.OnDefence3 += OnDefence3;
+        InputControls.OnDefence4 += OnDefence4;
+        InputControls.OnDefence5 += OnDefence5;
+
+        if (gameData.IsCombatMode())
+        {
+            StartPlay();
+        }
     }
 
     private void Update()
@@ -118,7 +128,38 @@ public class PlayerCntrl : MonoBehaviour
     private void OnJump()
     {
         Debug.Log("Player Controller Jump ...");
-        GameManager.Instance.AddGemCount(10);
+
+        if (gameData.IsDevelopmentMode())
+        {
+            GameManager.Instance.AddGem(3);
+        }
+    }
+
+    private void OnDefence1()
+    {
+        Debug.Log("Defence 1 ...");
+
+        playerAnimCntrl.Defence1Animation();
+    }
+
+    private void OnDefence2()
+    {
+        Debug.Log("Defence 2 ...");
+    }
+
+    private void OnDefence3()
+    {
+        Debug.Log("Defence 3 ...");
+    }
+
+    private void OnDefence4()
+    {
+        Debug.Log("Defence 4 ...");
+    }
+
+    private void OnDefence5()
+    {
+        Debug.Log("Defence 5 ...");
     }
 
     private bool IsPlayerMoving(Vector2 playerDirection) => (int)playerDirection.magnitude != 0;

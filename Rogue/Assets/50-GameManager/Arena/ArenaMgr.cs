@@ -53,9 +53,9 @@ public class ArenaMgr : MonoBehaviour
         }
     }
 
-    public void TurnOn()
+    public void TurnOn(int runTileIndex)
     {
-        runeCntrlList[currentRune].TurnRunOn();
+        runeCntrlList[runTileIndex].TurnRuneOn();
     }
 
     public void CreateAllArenas()

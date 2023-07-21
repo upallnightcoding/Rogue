@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerAnimationCntrl : MonoBehaviour
 {
-    [SerializeField] private Animator animator;
+    private Animator animator;
 
     private int horizontalName;
     private int verticalName;
@@ -22,5 +22,10 @@ public class PlayerAnimationCntrl : MonoBehaviour
     {
         animator.SetFloat(horizontalName, Mathf.Abs(horizontal), 0.1f, dt);
         animator.SetFloat(verticalName, Mathf.Abs(vertical), 0.1f, dt);
+    }
+
+    public void Defence1Animation()
+    {
+        animator.SetTrigger("Defence1");
     }
 }

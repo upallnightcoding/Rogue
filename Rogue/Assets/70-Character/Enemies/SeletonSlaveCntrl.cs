@@ -7,6 +7,8 @@ public class SeletonSlaveCntrl : MonoBehaviour
     [SerializeField] private float rotationSpeed;
     [SerializeField] private float moveSpeed;
 
+    private Animator animator;
+
     private GameObject player = null;
 
     private SeletonState state = SeletonState.IDLE;
@@ -17,6 +19,7 @@ public class SeletonSlaveCntrl : MonoBehaviour
     void Start()
     {
         charCntrl = GetComponent<CharacterController>();
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -40,7 +43,15 @@ public class SeletonSlaveCntrl : MonoBehaviour
 
     private SeletonState IdleState()
     {
-        return ((player == null) ? SeletonState.IDLE : SeletonState.CHASE);
+        SeletonState state = SeletonState.IDLE;
+
+        if (player != null)
+        {
+            state = SeletonState.CHASE;
+            animator.Play("Zombie Walk");
+        }
+
+        return (state);
     }
 
     private SeletonState ChaseState(float dt)
@@ -57,7 +68,7 @@ public class SeletonSlaveCntrl : MonoBehaviour
 
         Vector3 moveSkeleton = transform.forward * moveSpeed * dt;
 
-        charCntrl.SimpleMove(moveSkeleton);
+        //charCntrl.SimpleMove(moveSkeleton);
 
         return (SeletonState.CHASE);
     }

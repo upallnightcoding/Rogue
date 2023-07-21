@@ -39,12 +39,9 @@ public class MazeBuilder : MonoBehaviour
             }
         }
 
-        arenaMgr.TurnOn();
+        //arenaMgr.TurnOn();
     }
 
-    /**
-     * CreateAreaPaths() -
-     */
     private void CreateAreaPaths(MazeCell mazeCell, Vector3 center, float pathPos)
     {
         if (mazeCell.IsNorth())

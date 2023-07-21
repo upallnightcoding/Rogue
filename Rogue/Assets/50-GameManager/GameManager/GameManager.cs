@@ -8,10 +8,15 @@ public class GameManager : MonoBehaviour
     [SerializeField] private MazeBuilder mazeBuilder;
     [SerializeField] private UICntrl uiCntrl;
     [SerializeField] private PlayerCntrl playerCntrl;
+    [SerializeField] private ArenaMgr arenaMgr;
 
     public static GameManager Instance { get; private set; }
 
     private GameState gameState = GameState.GAME_PLAY;
+
+    private int runTileIndex = 0;
+
+    private int totalGemCount = 0;
 
     private void Awake()
     {
@@ -39,6 +44,8 @@ public class GameManager : MonoBehaviour
         mazeBuilder.BuildWorld(maze);
 
         playerCntrl.StartPlay();
+
+        //arenaMgr.TurnOn();
     }
 
     public void SettingGame()
@@ -51,14 +58,18 @@ public class GameManager : MonoBehaviour
         uiCntrl.QuitGamePanel();
     }
 
-    public void SelectRune(int runTileIndex)
+    public void AddGem(int count)
     {
-        uiCntrl.SelectRune(runTileIndex);
-    }
+        totalGemCount += count; 
 
-    public void AddGemCount(int count)
-    {
-        uiCntrl.AddGemCount(count);
+        if ((runTileIndex < gameData.runePoints.Length) && (totalGemCount >= gameData.runePoints[runTileIndex]))
+        {
+            uiCntrl.SelectRune(runTileIndex);
+            arenaMgr.TurnOn(runTileIndex);
+            runTileIndex++;
+        }
+
+        uiCntrl.DisplayGem(totalGemCount);
     }
 
     private enum GameState 

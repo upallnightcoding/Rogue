@@ -26,20 +26,11 @@ public class Room3x3TileArena : Arena
         CreateSides(mazeCell, center);
     }
 
-    public override bool IsStartingArena()
-    {
-        return (false);
-    }
+    public override bool IsStartingArena() => false;
 
-    public override Vector3 GetCenterPoint()
-    {
-        return (centerPoint);
-    }
+    public override Vector3 GetCenterPoint() => centerPoint;
 
-    public override RuneCntrl GetRuneCntrl()
-    {
-        return (runeCntrl);
-    }
+    public override RuneCntrl GetRuneCntrl() => runeCntrl;
 
     public void CreateFloor(MazeCell mazeCell, Vector3 center)
     {
@@ -149,6 +140,4 @@ public class Room3x3TileArena : Arena
                 Build();
         }
     }
-
-    
 }

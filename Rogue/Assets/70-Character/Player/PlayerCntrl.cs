@@ -26,11 +26,11 @@ public class PlayerCntrl : MonoBehaviour
     private void Start()
     {
         InputControls.OnJump += OnJump;
-        InputControls.OnDefence1 += OnDefence1;
-        InputControls.OnDefence2 += OnDefence2;
-        InputControls.OnDefence3 += OnDefence3;
-        InputControls.OnDefence4 += OnDefence4;
-        InputControls.OnDefence5 += OnDefence5;
+        InputControls.OnOffensive1 += OnOffensive1;
+        InputControls.OnOffensive2 += OnOffensive2;
+        InputControls.OnOffensive3 += OnOffensive3;
+        InputControls.OnOffensive4 += OnOffensive4;
+        InputControls.OnOffensive5 += OnOffensive5;
 
         if (gameData.IsCombatMode())
         {
@@ -41,7 +41,9 @@ public class PlayerCntrl : MonoBehaviour
     private void Update()
     {
         Vector2 playerDirection = inputControls.GetMoveDirection();
-        //Debug.Log($"Direction: {playerDirection.x}, {playerDirection.y}");
+
+        bool offenseButton = inputControls.GetLeftMouseButton();
+        bool defenseButton = inputControls.GetRightMouseButton();
 
         switch (playerState)
         {
@@ -55,6 +57,7 @@ public class PlayerCntrl : MonoBehaviour
                 playerState = PlayerIdle(playerDirection);
                 break;
             case PlayerState.MOVE:
+                PlayerAttack(offenseButton, defenseButton);
                 playerState = PlayerMove(playerDirection, Time.deltaTime);
                 break;
             case PlayerState.JUMP:
@@ -93,7 +96,25 @@ public class PlayerCntrl : MonoBehaviour
         playerAnimCntrl.UpdateAnimation(playerDirection.x, playerDirection.y, dt);
 
         return (PlayerState.MOVE);
-    }  
+    }
+
+    //private float lastOffenseTime = Time.realtimeSinceStartup;
+    private float lastOffenseTime = 0.0f;
+    
+    private void PlayerAttack(bool offenseButton, bool defenseButton)
+    {
+        float currentTime = Time.realtimeSinceStartup;
+
+        float delta = currentTime - lastOffenseTime;
+
+        if (delta > 1.0f)
+        {
+            Debug.Log($"delta time: {delta}");
+            lastOffenseTime = currentTime;
+
+        }
+        Debug.Log($"Offense: {offenseButton}");
+    }
 
     private void MovePlayerDirection(Vector2 playerDirection, float dt)
     { 
@@ -135,29 +156,29 @@ public class PlayerCntrl : MonoBehaviour
         }
     }
 
-    private void OnDefence1()
+    private void OnOffensive1()
     {
         Debug.Log("Defence 1 ...");
 
-        playerAnimCntrl.Defence1Animation();
+        playerAnimCntrl.Offensive1Animation();
     }
 
-    private void OnDefence2()
+    private void OnOffensive2()
     {
         Debug.Log("Defence 2 ...");
     }
 
-    private void OnDefence3()
+    private void OnOffensive3()
     {
         Debug.Log("Defence 3 ...");
     }
 
-    private void OnDefence4()
+    private void OnOffensive4()
     {
         Debug.Log("Defence 4 ...");
     }
 
-    private void OnDefence5()
+    private void OnOffensive5()
     {
         Debug.Log("Defence 5 ...");
     }

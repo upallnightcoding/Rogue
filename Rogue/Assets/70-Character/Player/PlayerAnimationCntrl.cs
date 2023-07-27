@@ -24,8 +24,8 @@ public class PlayerAnimationCntrl : MonoBehaviour
         animator.SetFloat(verticalName, Mathf.Abs(vertical), 0.1f, dt);
     }
 
-    public void Defence1Animation()
+    public void Offensive1Animation()
     {
-        animator.SetTrigger("Defence1");
+        animator.SetTrigger("Offensive1");
     }
 }

@@ -81,6 +81,22 @@ public class @InputSystem : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""DrawWeapon"",
+                    ""type"": ""Button"",
+                    ""id"": ""c1fcca99-f66c-45a2-9fbe-3a6e57c8831f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press""
+                },
+                {
+                    ""name"": ""Attack"",
+                    ""type"": ""Button"",
+                    ""id"": ""d9348c62-5538-4326-b935-aa4dac8f43a4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press""
                 }
             ],
             ""bindings"": [
@@ -270,6 +286,28 @@ public class @InputSystem : IInputActionCollection, IDisposable
                     ""action"": ""Defence5"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""72fa6153-1ef4-4d64-8e8b-f1d5f0419034"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": ""Tap"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DrawWeapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a3162715-b41b-4076-944a-0f374a3e95c0"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": ""Tap"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -286,6 +324,8 @@ public class @InputSystem : IInputActionCollection, IDisposable
         m_Player_Defence3 = m_Player.FindAction("Defence3", throwIfNotFound: true);
         m_Player_Defence4 = m_Player.FindAction("Defence4", throwIfNotFound: true);
         m_Player_Defence5 = m_Player.FindAction("Defence5", throwIfNotFound: true);
+        m_Player_DrawWeapon = m_Player.FindAction("DrawWeapon", throwIfNotFound: true);
+        m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -343,6 +383,8 @@ public class @InputSystem : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Defence3;
     private readonly InputAction m_Player_Defence4;
     private readonly InputAction m_Player_Defence5;
+    private readonly InputAction m_Player_DrawWeapon;
+    private readonly InputAction m_Player_Attack;
     public struct PlayerActions
     {
         private @InputSystem m_Wrapper;
@@ -355,6 +397,8 @@ public class @InputSystem : IInputActionCollection, IDisposable
         public InputAction @Defence3 => m_Wrapper.m_Player_Defence3;
         public InputAction @Defence4 => m_Wrapper.m_Player_Defence4;
         public InputAction @Defence5 => m_Wrapper.m_Player_Defence5;
+        public InputAction @DrawWeapon => m_Wrapper.m_Player_DrawWeapon;
+        public InputAction @Attack => m_Wrapper.m_Player_Attack;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -388,6 +432,12 @@ public class @InputSystem : IInputActionCollection, IDisposable
                 @Defence5.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDefence5;
                 @Defence5.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDefence5;
                 @Defence5.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDefence5;
+                @DrawWeapon.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDrawWeapon;
+                @DrawWeapon.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDrawWeapon;
+                @DrawWeapon.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDrawWeapon;
+                @Attack.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttack;
+                @Attack.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttack;
+                @Attack.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttack;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -416,6 +466,12 @@ public class @InputSystem : IInputActionCollection, IDisposable
                 @Defence5.started += instance.OnDefence5;
                 @Defence5.performed += instance.OnDefence5;
                 @Defence5.canceled += instance.OnDefence5;
+                @DrawWeapon.started += instance.OnDrawWeapon;
+                @DrawWeapon.performed += instance.OnDrawWeapon;
+                @DrawWeapon.canceled += instance.OnDrawWeapon;
+                @Attack.started += instance.OnAttack;
+                @Attack.performed += instance.OnAttack;
+                @Attack.canceled += instance.OnAttack;
             }
         }
     }
@@ -430,5 +486,7 @@ public class @InputSystem : IInputActionCollection, IDisposable
         void OnDefence3(InputAction.CallbackContext context);
         void OnDefence4(InputAction.CallbackContext context);
         void OnDefence5(InputAction.CallbackContext context);
+        void OnDrawWeapon(InputAction.CallbackContext context);
+        void OnAttack(InputAction.CallbackContext context);
     }
 }

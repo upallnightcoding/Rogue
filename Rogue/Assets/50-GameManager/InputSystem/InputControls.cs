@@ -8,22 +8,25 @@ public class InputControls : MonoBehaviour
 {
     public static event Action OnJump = delegate {};
 
-    public static event Action OnDefence1 = delegate { };
-    public static event Action OnDefence2 = delegate { };
-    public static event Action OnDefence3 = delegate { };
-    public static event Action OnDefence4 = delegate { };
-    public static event Action OnDefence5 = delegate { };
+    public static event Action OnOffensive1 = delegate { };
+    public static event Action OnOffensive2 = delegate { };
+    public static event Action OnOffensive3 = delegate { };
+    public static event Action OnOffensive4 = delegate { };
+    public static event Action OnOffensive5 = delegate { };
+
+    public static event Action OnDrawWeapon = delegate { };
 
     private InputSystem inputSystem;
     private InputAction moveAction;
     private InputAction jumpAction;
     private InputAction mouseAction;
+    private InputAction drawWeaponAction;
 
-    private InputAction defence1Action;
-    private InputAction defence2Action;
-    private InputAction defence3Action;
-    private InputAction defence4Action;
-    private InputAction defence5Action;
+    private InputAction offensive1Action;
+    private InputAction offensive2Action;
+    private InputAction offensive3Action;
+    private InputAction offensive4Action;
+    private InputAction offensive5Action;
 
     void Awake()
     {
@@ -32,12 +35,13 @@ public class InputControls : MonoBehaviour
         moveAction = inputSystem.Player.Move;
         jumpAction = inputSystem.Player.Jump;
         mouseAction = inputSystem.Player.Camera;
+        drawWeaponAction = inputSystem.Player.DrawWeapon;
 
-        defence1Action = inputSystem.Player.Defence1;
-        defence2Action = inputSystem.Player.Defence2;
-        defence3Action = inputSystem.Player.Defence3;
-        defence4Action = inputSystem.Player.Defence4;
-        defence5Action = inputSystem.Player.Defence5;
+        offensive1Action = inputSystem.Player.Defence1;
+        offensive2Action = inputSystem.Player.Defence2;
+        offensive3Action = inputSystem.Player.Defence3;
+        offensive4Action = inputSystem.Player.Defence4;
+        offensive5Action = inputSystem.Player.Defence5;
     }
 
     public Vector2 GetMoveDirection()
@@ -50,13 +54,19 @@ public class InputControls : MonoBehaviour
         return (mouseAction.ReadValue<Vector2>());
     }
 
+    public bool GetLeftMouseButton() => Mouse.current.leftButton.isPressed;
+
+    public bool GetRightMouseButton() => Mouse.current.rightButton.isPressed;
+
     private void Jump(InputAction.CallbackContext context) => OnJump.Invoke();
 
-    private void Defence1(InputAction.CallbackContext context) => OnDefence1.Invoke();
-    private void Defence2(InputAction.CallbackContext context) => OnDefence2.Invoke();
-    private void Defence3(InputAction.CallbackContext context) => OnDefence3.Invoke();
-    private void Defence4(InputAction.CallbackContext context) => OnDefence4.Invoke();
-    private void Defence5(InputAction.CallbackContext context) => OnDefence5.Invoke();
+    private void DrawWeapon(InputAction.CallbackContext context) => OnDrawWeapon.Invoke();
+
+    private void Offensive1(InputAction.CallbackContext context) => OnOffensive1.Invoke();
+    private void Offensive2(InputAction.CallbackContext context) => OnOffensive2.Invoke();
+    private void Offensive3(InputAction.CallbackContext context) => OnOffensive3.Invoke();
+    private void Offensive4(InputAction.CallbackContext context) => OnOffensive4.Invoke();
+    private void Offensive5(InputAction.CallbackContext context) => OnOffensive5.Invoke();
 
     private void OnEnable()
     {
@@ -64,19 +74,23 @@ public class InputControls : MonoBehaviour
         jumpAction.Enable();
         mouseAction.Enable();
 
-        defence1Action.Enable();
-        defence2Action.Enable();
-        defence3Action.Enable();
-        defence4Action.Enable();
-        defence5Action.Enable();
+        offensive1Action.Enable();
+        offensive2Action.Enable();
+        offensive3Action.Enable();
+        offensive4Action.Enable();
+        offensive5Action.Enable();
+
+        drawWeaponAction.Enable();
+
+        drawWeaponAction.performed -= DrawWeapon;
 
         jumpAction.performed += Jump;
 
-        defence1Action.performed += Defence1;
-        defence2Action.performed += Defence2;
-        defence3Action.performed += Defence3;
-        defence4Action.performed += Defence4;
-        defence5Action.performed += Defence5;
+        offensive1Action.performed += Offensive1;
+        offensive2Action.performed += Offensive2;
+        offensive3Action.performed += Offensive3;
+        offensive4Action.performed += Offensive4;
+        offensive5Action.performed += Offensive5;
     }
 
     private void OnDisable()
@@ -84,19 +98,22 @@ public class InputControls : MonoBehaviour
         moveAction.Disable();
         jumpAction.Disable();
         mouseAction.Disable();
+        drawWeaponAction.Disable();
 
-        defence1Action.Disable();
-        defence2Action.Disable();
-        defence3Action.Disable();
-        defence4Action.Disable();
-        defence5Action.Disable();
+        offensive1Action.Disable();
+        offensive2Action.Disable();
+        offensive3Action.Disable();
+        offensive4Action.Disable();
+        offensive5Action.Disable();
 
         jumpAction.performed -= Jump;
 
-        defence1Action.performed -= Defence1;
-        defence2Action.performed -= Defence2;
-        defence3Action.performed -= Defence3;
-        defence4Action.performed -= Defence4;
-        defence5Action.performed -= Defence5;
+        drawWeaponAction.performed -= DrawWeapon;
+
+        offensive1Action.performed -= Offensive1;
+        offensive2Action.performed -= Offensive2;
+        offensive3Action.performed -= Offensive3;
+        offensive4Action.performed -= Offensive4;
+        offensive5Action.performed -= Offensive5;
     }
 }

@@ -68,6 +68,22 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "DrawWeapon",
+                    "type": "Button",
+                    "id": "c1fcca99-f66c-45a2-9fbe-3a6e57c8831f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press"
+                },
+                {
+                    "name": "Attack",
+                    "type": "Button",
+                    "id": "d9348c62-5538-4326-b935-aa4dac8f43a4",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press"
                 }
             ],
             "bindings": [
@@ -255,6 +271,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Defence5",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "72fa6153-1ef4-4d64-8e8b-f1d5f0419034",
+                    "path": "<Keyboard>/r",
+                    "interactions": "Tap",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DrawWeapon",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a3162715-b41b-4076-944a-0f374a3e95c0",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "Tap",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
